@@ -16,8 +16,8 @@ import time
 
 
 
-df = pd.read_csv('dataset.csv',names=['Images', 'Questions', 'Answers'])#open csv file and rename columns
-predictions = pd.read_csv('VQAM.csv',names=['Images', 'Questions','Answers'])
+df = pd.read_csv('InputFiles/dataset.csv',names=['Images', 'Questions', 'Answers'])#open csv file and rename columns
+predictions = pd.read_csv('InputFiles/VQAM.csv',names=['Images', 'Questions','Answers'])
 # dictionary of replaceable words
 replace_dict = {"magnetic resonance imaging":"mri",
                 "mri scan":'mri',
@@ -66,6 +66,6 @@ myRes2= pd.Series(res2)
 myRes.replace('"', '')#replace word
 myRes2.replace('"', '')#replace word
 
-myRes.to_csv('res.csv',index=False)
-myRes2.to_csv('gt.csv',index=False)
+myRes.to_csv('outputFiles/res.csv',index=False)
+myRes2.to_csv('outputFiles/gt.csv',index=False)
 
