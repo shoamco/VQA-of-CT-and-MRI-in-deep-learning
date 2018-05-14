@@ -11,7 +11,7 @@ import nltk
 # nltk.download('stopwords')
 import time
 
-df = pd.read_csv('dataset.csv',names=['Images','Questions','Answers'])#open csv file and rename columns
+df = pd.read_csv('InputFiles/dataset.csv',names=['Images','Questions','Answers'])#open csv file and rename columns
 # df = pd.read_csv('VQAM.csv',names=['Images', 'Questions','Answers'])
 
 # dictionary of replaceable words
@@ -42,7 +42,7 @@ when= df[df['Questions'].str.contains('when')]#
 Other=df[~df['Questions'].str.contains('what|where|who|how|which|when')]#
 
 #save in excel file
-writer = ExcelWriter('questionWords TrainingSet.xlsx')
+writer = ExcelWriter('outputFiles/questionWords TrainingSet.xlsx')
 # writer = ExcelWriter('questionWords ValidationSet.xlsx')
 # writer = ExcelWriter('Analysis2 TrainingSet.xlsx')
 # writer = ExcelWriter('Analysis2 ValidationSet.xlsx')
