@@ -12,6 +12,10 @@ import spacy
 import nltk
 # nltk.download('stopwords')
 import time
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+import glob
 
 df = pd.read_csv('InputFiles/dataset.csv',names=['Images', 'Questions', 'Answers'])#open csv file and rename columns
 predictions = pd.read_csv('InputFiles/VQAM.csv',names=['Images', 'Questions','Answers'])
@@ -40,6 +44,13 @@ data2.to_excel(writer,'only MRI CT in Answers',index=False)
 data3.to_excel(writer,'not MRI CT  in Answers',index=False)
 
 writer.save()
+
+
+
+# Calculation of average histogram
+images = [cv2.imread(file) for file in glob.glob("data\c5e905f7-6eb0-4a98-b284-da0729a1caf3_VQAMed2018Train\VQAMed2018Train\*.png")]
+h, b = np.histogram(images, bins=[0, 256])
+h.view()
 
 
 
