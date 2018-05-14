@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a59c0775-0f68-4803-9d46-b8c406f7d6ae" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/SimilarQuestionsSpacy.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/DataAnalysis.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,13 +26,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimilarQuestionsSpacy.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SimilarQuestionsSpacy.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SimilarQuestionsSpacy.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
               <caret line="1" column="112" lean-forward="false" selection-start-line="1" selection-start-column="112" selection-end-line="1" selection-end-column="112" />
               <folding>
                 <element signature="e#274#284#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataAnalysis.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/DataAnalysis.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="20" lean-forward="false" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
+              <folding>
+                <element signature="e#77#87#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -55,6 +67,7 @@
       <list>
         <option value="$PROJECT_DIR$/Evaluator.py" />
         <option value="$PROJECT_DIR$/SimilarQuestionsSpacy.py" />
+        <option value="$PROJECT_DIR$/DataAnalysis.py" />
       </list>
     </option>
   </component>
@@ -186,6 +199,16 @@
           <caret line="1" column="112" lean-forward="false" selection-start-line="1" selection-start-column="112" selection-end-line="1" selection-end-column="112" />
           <folding>
             <element signature="e#274#284#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DataAnalysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="20" lean-forward="false" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
+          <folding>
+            <element signature="e#77#87#0" expanded="true" />
           </folding>
         </state>
       </provider>
