@@ -3,64 +3,84 @@ Initial analysis of MRI / CT image type
 Using an average histogram
 (Only for questions that do not include MRI / CT)
 """
-import csv
-import pandas as pd
 
-import numpy as np
-import matplotlib.pyplot as plt
-from pandas import ExcelWriter
-from pandas import ExcelFile
-import numpy as np
-import spacy
-import nltk
-# nltk.download('stopwords')
-import time
+import pandas as pd
+# from pyemd import *
 import cv2
+from cv2 import *
 import numpy as np
+from scipy.stats import wasserstein_distance
 from matplotlib import pyplot as plt
-import glob
-#
-# df = pd.read_csv('InputFiles/dataset.csv',names=['Images', 'Questions', 'Answers'])#open csv file and rename columns
-# predictions = pd.read_csv('InputFiles/VQAM.csv',names=['Images', 'Questions','Answers'])
+import matplotlib.pyplot as plt
+from matplotlib.legend_handler \
+import HandlerLine2D
+import matplotlib.patches as mpatches
+
+
+
+
+def calc_avg_hist(images):
+    """The function get a list names of relevant images end return tha avarage histogram for all images"""
+
+    # loading all the image that it's answers contain mri or ct
+    name_img = [cv2.imread("images\Train-images\\" + img + ".jpg") for img in images]
+    # create an array of histogram for all the images
+    img_to_hist = [cv2.calcHist([img], [0], None, [256], [0, 256]) for img in name_img]
+    # convert list to an array
+    a = np.array(img_to_hist)
+    # Calculation of average histogram
+    avg_hist = np.mean(a, axis=0)
+    return avg_hist
+
+
+df = pd.read_csv('InputFiles/dataset.csv',names=['Images', 'Questions', 'Answers'])#open csv file and rename columns
+# df = pd.read_csv('InputFiles/VQAM.csv',names=['Images', 'Questions','Answers'])
 # # dictionary of replaceable words
-# replace_dict = {"magnetic resonance imaging":"mri",
-#                 "mri scan":'mri',
-#                 "MRI":"mri",
-#                 "shows": "show",
-#                 "reveal":"show",
-#                 "demonstrate":"show",
-#                 "CT":"ct",
-#                 "ct scan":"ct",
-#                 "does":"","do ":"","the":"",
-#                     # " a ":' ',' is ':' ',
-#                 }
-# df.replace(to_replace=replace_dict, inplace=True, regex=True)#replace word
+replace_dict = {"magnetic resonance imaging":"mri",
+                "mri scan":'mri',
+                "MRI":"mri",
+                "shows": "show",
+                "reveal":"show",
+                "demonstrate":"show",
+                "CT":"ct",
+                "ct scan":"ct",
+                "does":"","do ":"","the":"",
+                    # " a ":' ',' is ':' ',
+                }
+df.replace(to_replace=replace_dict, inplace=True, regex=True)#replace word
 # predictions.replace(to_replace=replace_dict, inplace=True, regex=True)#replace word
-#
+
 # what=df_ct = df[df['Questions'].str.contains('what')]#
 # data=df[(~df['Questions'].str.contains('mri|ct') & df['Questions'].str.contains('what'))==True ]#
 # data2=df[(~df['Questions'].str.contains('mri|ct') & df['Questions'].str.contains('what') &df['Answers'].str.contains('mri|ct') )==True ]#
 # data3=df[(~df['Questions'].str.contains('mri|ct') & df['Questions'].str.contains('what') & (df['Answers'].str.contains('mri|ct')==False) )==True ]#
-# writer = ExcelWriter('outputFiles/questions without CT MRI.xlsx')
+# writer = pd.ExcelWriter('outputFiles/ VALID questions without CT MRI.xlsx')
 # data.to_excel(writer,'All Answers',index=False)
 # data2.to_excel(writer,'only MRI CT in Answers',index=False)
 # data3.to_excel(writer,'not MRI CT  in Answers',index=False)
 #
 # writer.save()
 
+ImagesOfMri=df[(~df['Questions'].str.contains('mri|ct') & df['Questions'].str.contains('what') &df['Answers'].str.contains('mri') )==True ]['Images']
+ImagesOfCt=df[(~df['Questions'].str.contains('mri|ct') & df['Questions'].str.contains('what') &df['Answers'].str.contains('ct') )==True ]['Images']
+
+avg_hist_mri=calc_avg_hist(ImagesOfMri)
+avg_hist_ct=calc_avg_hist(ImagesOfCt)
 
 
-# Calculation of average histogram
-images = [cv2.imread(file) for file in glob.glob("images\Train-images\*.jpg")]
-# print(images)
-h, b = np.histogram(images, bins=[0, 256])
-# h.view()
-# print(h)
+hist = cv2.calcHist(ingValid, [0], None, [256], [0, 256])
 
+plt.title('Comparison of histograms (mri and ct)')
+mri_patch = mpatches.Patch(color='b', label='mri')
+ct_patch = mpatches.Patch(color='g', label='ct')
+valid_patch = mpatches.Patch(color='r', label='valid')
 
-hst=np.mean(h)
-print(hst)
-# for img in images:
-#     hst+=plt.hist(img.ravel(),256,[0,256]);
-# print(hst)
-    # plt.show()
+mri=plt.semilogy(avg_hist_mri,color='b')
+ct=plt.semilogy(avg_hist_ct,color='g')
+ct=plt.semilogy(hist,color='r')
+
+plt.xlim([0, 256])
+plt.ylim([0,20000])
+plt.legend(handles=[mri_patch,ct_patch,valid_patch])
+plt.show()
+#
