@@ -5,6 +5,7 @@ Using an average histogram
 """
 
 import pandas as pd
+<<<<<<< HEAD
 # from pyemd import *
 import cv2
 from cv2 import *
@@ -14,6 +15,12 @@ from matplotlib import pyplot as plt
 import matplotlib.pyplot as plt
 from matplotlib.legend_handler \
 import HandlerLine2D
+=======
+import cv2
+from cv2 import *
+import numpy as np
+import matplotlib.pyplot as plt
+>>>>>>> 915dda44afeaacbd7811069af5d2da4689fd230f
 import matplotlib.patches as mpatches
 
 
@@ -26,15 +33,26 @@ def calc_avg_hist(images):
     name_img = [cv2.imread("images\Train-images\\" + img + ".jpg") for img in images]
     # create an array of histogram for all the images
     img_to_hist = [cv2.calcHist([img], [0], None, [256], [0, 256]) for img in name_img]
+<<<<<<< HEAD
     # convert list to an array
     a = np.array(img_to_hist)
+=======
+    # Calculation of a normalized histogram
+    norm_img_to_hist = [cv2.normalize(hist,hist) for hist in img_to_hist]
+    # convert list to an array
+    a = np.array(norm_img_to_hist)
+>>>>>>> 915dda44afeaacbd7811069af5d2da4689fd230f
     # Calculation of average histogram
     avg_hist = np.mean(a, axis=0)
     return avg_hist
 
 
 df = pd.read_csv('InputFiles/dataset.csv',names=['Images', 'Questions', 'Answers'])#open csv file and rename columns
+<<<<<<< HEAD
 # df = pd.read_csv('InputFiles/VQAM.csv',names=['Images', 'Questions','Answers'])
+=======
+
+>>>>>>> 915dda44afeaacbd7811069af5d2da4689fd230f
 # # dictionary of replaceable words
 replace_dict = {"magnetic resonance imaging":"mri",
                 "mri scan":'mri',
@@ -48,6 +66,10 @@ replace_dict = {"magnetic resonance imaging":"mri",
                     # " a ":' ',' is ':' ',
                 }
 df.replace(to_replace=replace_dict, inplace=True, regex=True)#replace word
+<<<<<<< HEAD
+=======
+
+>>>>>>> 915dda44afeaacbd7811069af5d2da4689fd230f
 # predictions.replace(to_replace=replace_dict, inplace=True, regex=True)#replace word
 
 # what=df_ct = df[df['Questions'].str.contains('what')]#
@@ -61,13 +83,47 @@ df.replace(to_replace=replace_dict, inplace=True, regex=True)#replace word
 #
 # writer.save()
 
+<<<<<<< HEAD
+=======
+# Extracts only relevant answers
+>>>>>>> 915dda44afeaacbd7811069af5d2da4689fd230f
 ImagesOfMri=df[(~df['Questions'].str.contains('mri|ct') & df['Questions'].str.contains('what') &df['Answers'].str.contains('mri') )==True ]['Images']
 ImagesOfCt=df[(~df['Questions'].str.contains('mri|ct') & df['Questions'].str.contains('what') &df['Answers'].str.contains('ct') )==True ]['Images']
 
 avg_hist_mri=calc_avg_hist(ImagesOfMri)
 avg_hist_ct=calc_avg_hist(ImagesOfCt)
+<<<<<<< HEAD
+=======
+
+# Calculation of a normalized  avarage histogram
+norm_img_to_hist_mri =cv2.normalize(avg_hist_mri,avg_hist_mri)
+norm_img_to_hist_ct =cv2.normalize(avg_hist_ct,avg_hist_ct)
+
+# Calculation of a normalized histogram of single Image
+ingValid=cv2.imread("images\Valid-images\\SJA-7-347-g002.jpg")
+hist = cv2.calcHist(ingValid, [0], None, [256], [0, 256])
+norm_img_to_hist =cv2.normalize(hist,hist)
 
 
+
+plt.title('Comparison of histograms (mri and ct)')
+mri_patch = mpatches.Patch(color='b', label='mri')
+ct_patch = mpatches.Patch(color='g', label='ct')
+valid_patch = mpatches.Patch(color='r', label='valid')
+
+# Display of normalized histograms
+
+# mri=plt.plot(norm_img_to_hist_mri,color='b')
+# ct=plt.plot(norm_img_to_hist_ct,color='g')
+# img=plt.plot(norm_img_to_hist,color='r')
+>>>>>>> 915dda44afeaacbd7811069af5d2da4689fd230f
+
+# Logarithmic scale presentation
+mri=plt.semilogy(norm_img_to_hist_mri,color='b')
+ct=plt.semilogy(norm_img_to_hist_ct,color='g')
+img=plt.semilogy(norm_img_to_hist,color='r')
+
+<<<<<<< HEAD
 hist = cv2.calcHist(ingValid, [0], None, [256], [0, 256])
 
 plt.title('Comparison of histograms (mri and ct)')
@@ -84,3 +140,11 @@ plt.ylim([0,20000])
 plt.legend(handles=[mri_patch,ct_patch,valid_patch])
 plt.show()
 #
+=======
+# plt.xlim([0, 256])
+# plt.ylim([0,20000])
+
+plt.legend(handles=[mri_patch,ct_patch,valid_patch])
+plt.show()
+
+>>>>>>> 915dda44afeaacbd7811069af5d2da4689fd230f
