@@ -17,16 +17,40 @@ from sklearn import metrics
 from sklearn.cluster import KMeans
 from sklearn.datasets import load_digits
 from sklearn.decomposition import PCA
+from skimage import feature
+from skimage import feature
 from sklearn.preprocessing import scale
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
+def CALC_SHOW_PCA(X,STRING_MODEL):
+
+    pca = PCA(n_components=2)
+    X_r = pca.fit(X).transform(X)
+    target_names = ['MRI', 'CT']
+    y = np.full((len(ImagesOfMri)), 0)
+    y1 = np.full((len(ImagesOfCt)), 1)
+    y = np.concatenate((y, y1), axis=0, out=None)
+
+    # Percentage of variance explained for each components
+    print('explained variance ratio (first two components): %s'
+          % str(pca.explained_variance_ratio_))
+
+    plt.figure()
+    colors = ['navy', 'turquoise']
+    lw = 2
+
+    for color, i, target_name in zip(colors, [0, 1], target_names):
+        plt.scatter(X_r[y == i, 0], X_r[y == i, 1], color=color, alpha=.8, lw=lw,
+                    label=target_name)
+    plt.legend(loc='best', shadow=False, scatterpoints=1)
+    plt.title('PCA of mri/ct '+STRING_MODEL)
+    plt.show()
 
 
 def img_to_histogram(images):
-    # loading all the image that it's answers contain mri or ct
-    name_img = [cv2.imread("images\Train-images\\" + img + ".jpg") for img in images]
+
     # create an array of histogram for all the images
-    img_to_hist = [cv2.calcHist([img], [0], None, [256], [0, 256]) for img in name_img]
+    img_to_hist = [cv2.calcHist([img], [0], None, [256], [0, 256]) for img in images]
     # Calculation of a normalized histogram
     img_to_hist = [norm_hist(hist) for hist in img_to_hist]
     return img_to_hist
@@ -49,15 +73,12 @@ def two_dim(array):
     two_dim = [hist.flatten() for hist in array]
     return two_dim
 
-def pca_calc(array):
-    """The function accepts an array and calculates the PCA value"""
-    pca = PCA(n_components=2)
-    pca.fit(two_dim(array))
-    PCA(copy=True, iterated_power='auto', n_components=2, random_state=None,
-      svd_solver='auto', tol=0.0, whiten=False)
-    print(pca.explained_variance_ratio_)
-    pc=plt.plot(pca.explained_variance_ratio_,color='b')
-    plt.show()
+def concatenate_mri_ct(mri_arr,ct_arr):
+    return np.concatenate((mri_arr,ct_arr),axis=0, out=None)
+
+def calc_canny(array_of_img):
+    img_to_canny=[cv2.Canny(im,1,30,L2gradient=False)for im in array_of_img]
+    return img_to_canny
 
 
 
@@ -81,33 +102,45 @@ df.replace(to_replace=replace_dict, inplace=True, regex=True)#replace word
 ImagesOfMri=df[(~df['Questions'].str.contains('mri|ct') & df['Questions'].str.contains('what') &df['Answers'].str.contains('mri') )==True ]['Images']
 ImagesOfCt=df[(~df['Questions'].str.contains('mri|ct') & df['Questions'].str.contains('what') &df['Answers'].str.contains('ct') )==True ]['Images']
 
-target_names=['MRI','CT']
-X=two_dim(img_to_histogram(ImagesOfMri))
-HIST1=two_dim(img_to_histogram(ImagesOfCt))
+ImagesOfMri = [cv2.imread("images\Train-images\\" + img + ".jpg") for img in ImagesOfMri]
+ImagesOfCt = [cv2.imread("images\Train-images\\" + img + ".jpg") for img in ImagesOfCt]
 
-y=np.full((len(X)),0)
-y1=np.full((len(HIST1)),1)
-y=np.concatenate((y,y1),axis=0, out=None)
-X=np.concatenate((X,HIST1),axis=0, out=None)
+# loading all the image that it's answers contain mri or ct
 
-print(X[:2])
-pca = PCA(n_components=2)
-X_r = pca.fit(X).transform(X)
+# *************HISTOGRAM********************
+mri_hist=two_dim(img_to_histogram(ImagesOfMri))
+ct_hist=two_dim(img_to_histogram(ImagesOfCt))
 
+data_hist=concatenate_mri_ct(mri_hist,ct_hist)
 
-# Percentage of variance explained for each components
-print('explained variance ratio (first two components): %s'
-      % str(pca.explained_variance_ratio_))
-
-plt.figure()
-colors = ['navy', 'turquoise']
-lw = 2
-
-for color, i, target_name in zip(colors, [0, 1], target_names):
-    plt.scatter(X_r[y == i, 0], X_r[y == i, 1], color=color, alpha=.8, lw=lw,
-                label=target_name)
-plt.legend(loc='best', shadow=False, scatterpoints=1)
-plt.title('PCA of mri/ct dataset')
+# CALC_SHOW_PCA(data_hist,"HISTOGRAM")
 
 
-plt.show()
+# **************CANNY************************
+
+mri_canny=two_dim(calc_canny(ImagesOfMri))
+ct_canny=two_dim(calc_canny(ImagesOfCt))
+data_canny=concatenate_mri_ct(mri_canny,ct_canny)
+print(len(data_canny[0]))
+print(len(data_canny[50]))
+[list(item) for item in mri_canny]
+# norm_image = cv2.normalize(data_canny[0], data_canny[0])
+print(mri_canny[:3])
+# a=mri_canny[0]
+#
+# data_canny1=[np.r_[a, np.zeros((356577 - a.shape[0], 117300), dtype=a.dtype)] ]
+# CALC_SHOW_PCA(data_canny1,"CANNY")
+
+# edges = cv2.Canny(ImagesOfMri[5],1,30)
+# # edges = filter.canny(ImagesOfMri[0], sigma=3)
+# plt.subplot(121),
+# plt.imshow(ImagesOfMri[5],cmap = 'gray')
+# plt.title('Original Image'), plt.xticks([]), plt.yticks([])
+# plt.subplot(122),plt.imshow(edges,cmap = 'gray')
+# plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
+# plt.show()
+
+# CALC_SHOW_PCA(data_canny,"CANNY")
+
+
+
