@@ -3,6 +3,8 @@
 import pandas as pd
 import cv2
 from cv2 import *
+from numpy import*
+
 import numpy as np
 from scipy.stats import wasserstein_distance
 from matplotlib import pyplot as plt
@@ -13,14 +15,20 @@ import matplotlib.patches as mpatches
 from time import time
 import numpy as np
 import matplotlib.pyplot as plt
+from skimage.transform import integral_image
+import skimage
+
 from sklearn import metrics
 from sklearn.cluster import KMeans
 from sklearn.datasets import load_digits
 from sklearn.decomposition import PCA
 from skimage import feature
 from skimage import feature
+from skimage.feature import daisy
+
 from sklearn.preprocessing import scale
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+
 
 def CALC_SHOW_PCA(X,STRING_MODEL):
 
@@ -70,17 +78,17 @@ def calc_avg_hist(array_of_hist):
 
 def two_dim(array):
     """"The function accepts an array with more than two dimensions and returns an array with one dimension"""
-    two_dim = [hist.flatten() for hist in array]
-    return two_dim
+    two_dim_arr = [arr.flatten() for arr in array]
+    return two_dim_arr
 
 def concatenate_mri_ct(mri_arr,ct_arr):
     return np.concatenate((mri_arr,ct_arr),axis=0, out=None)
 
-def calc_canny(array_of_img):
-    img_to_canny=[cv2.Canny(im,1,30,L2gradient=False)for im in array_of_img]
-    return img_to_canny
-
-
+def calc_dsy(images):
+    img_to_2d= [two_dim(im) for im in images]
+    img_to_dsy = [skimage.feature.daisy(img, step=15, radius=15, rings=3, histograms=8,
+                          orientations=4, normalization='l1', sigmas=None, ring_radii=None, visualize=False_) for img in img_to_2d]
+    return img_to_dsy
 
 df = pd.read_csv('InputFiles/dataset.csv',names=['Images', 'Questions', 'Answers'])#open csv file and rename columns
 
@@ -108,39 +116,23 @@ ImagesOfCt = [cv2.imread("images\Train-images\\" + img + ".jpg") for img in Imag
 # loading all the image that it's answers contain mri or ct
 
 # *************HISTOGRAM********************
-mri_hist=two_dim(img_to_histogram(ImagesOfMri))
-ct_hist=two_dim(img_to_histogram(ImagesOfCt))
 
-data_hist=concatenate_mri_ct(mri_hist,ct_hist)
-
+# mri_hist=two_dim(img_to_histogram(ImagesOfMri))
+# ct_hist=two_dim(img_to_histogram(ImagesOfCt))
+#
+# data_hist=concatenate_mri_ct(mri_hist,ct_hist)
+#
 # CALC_SHOW_PCA(data_hist,"HISTOGRAM")
 
 
-# **************CANNY************************
 
-mri_canny=two_dim(calc_canny(ImagesOfMri))
-ct_canny=two_dim(calc_canny(ImagesOfCt))
-data_canny=concatenate_mri_ct(mri_canny,ct_canny)
-print(len(data_canny[0]))
-print(len(data_canny[50]))
-[list(item) for item in mri_canny]
-# norm_image = cv2.normalize(data_canny[0], data_canny[0])
-print(mri_canny[:3])
-# a=mri_canny[0]
+# *******************DAISY**************************
+
+# mri_dsy=two_dim(calc_dsy(ImagesOfMri[0]))
 #
-# data_canny1=[np.r_[a, np.zeros((356577 - a.shape[0], 117300), dtype=a.dtype)] ]
-# CALC_SHOW_PCA(data_canny1,"CANNY")
-
-# edges = cv2.Canny(ImagesOfMri[5],1,30)
-# # edges = filter.canny(ImagesOfMri[0], sigma=3)
-# plt.subplot(121),
-# plt.imshow(ImagesOfMri[5],cmap = 'gray')
-# plt.title('Original Image'), plt.xticks([]), plt.yticks([])
-# plt.subplot(122),plt.imshow(edges,cmap = 'gray')
-# plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
-# plt.show()
-
-# CALC_SHOW_PCA(data_canny,"CANNY")
-
-
-
+# ct_dsy=two_dim(calc_dsy(ImagesOfCt[0]))
+# 
+# data_dsy=concatenate_mri_ct(mri_dsy,ct_dsy)
+#
+#
+# CALC_SHOW_PCA(data_dsy,"daisy")
