@@ -131,8 +131,8 @@ ImagesOfCt = [cv2.imread("images\Train-images\\" + img + ".jpg") for img in Imag
 # mri_dsy=two_dim(calc_dsy(ImagesOfMri[0]))
 #
 # ct_dsy=two_dim(calc_dsy(ImagesOfCt[0]))
-# 
+#
 # data_dsy=concatenate_mri_ct(mri_dsy,ct_dsy)
-#
-#
+
 # CALC_SHOW_PCA(data_dsy,"daisy")
+
