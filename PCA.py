@@ -22,7 +22,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from matplotlib import pyplot
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
-from skimage.feature import daisy
+
 from skimage.feature import hog
 from skimage import data, exposure
 import random
@@ -57,14 +57,13 @@ def img_to_histogram(images):
     # Calculation of a normalized histogram
     img_to_hist = [norm_hist(hist) for hist in img_to_hist]
     return img_to_hist
-def calc_dsy(images):
-    # img_to_2d=two_dim(images)
-    # print(img_to_2d)
-    img_to_dsy = [feature.daisy(img, step=15, radius=15, rings=3, histograms=8, orientations=4, normalization='l1', sigmas=None, ring_radii=None, visualize=False) for img in images]
-
-
-    return img_to_dsy
+# def HOG(images):
+#     hog_image =[feature.hog(img, orientations=9, pixels_per_cell=(8, 8),
+# 	cells_per_block=(2, 2), transform_sqrt=True, block_norm="L1") for img in images]
 #
+#     print(hog_image)
+#     return hog_image
+
 def norm_hist(hist):
     img_to_hist = cv2.normalize(hist, hist)
     return img_to_hist
@@ -90,6 +89,9 @@ def concatenate_mri_ct(mri_arr, ct_arr):
     return np.concatenate((mri_arr, ct_arr), axis=0, out=None)
 
 
+def calc_canny(array_of_img):
+    img_to_canny = [cv2.Canny(im, 1, 30, L2gradient=False) for im in array_of_img]
+    return img_to_canny
 
 
 df = pd.read_csv('InputFiles/dataset.csv', names=['Images', 'Questions', 'Answers'])  # open csv file and rename columns
@@ -112,11 +114,11 @@ ImagesOfMri = df[(~df['Questions'].str.contains('mri|ct') & df['Questions'].str.
     'Answers'].str.contains('mri')) == True]['Images']
 ImagesOfCt = df[(~df['Questions'].str.contains('mri|ct') & df['Questions'].str.contains('what') & df[
     'Answers'].str.contains('ct')) == True]['Images']
-# loading all the image that it's answers contain mri or ct
+
 ImagesOfMri = [cv2.imread("images\Train-images\\" + img + ".jpg") for img in ImagesOfMri]
 ImagesOfCt = [cv2.imread("images\Train-images\\" + img + ".jpg") for img in ImagesOfCt]
 
-
+# loading all the image that it's answers contain mri or ct
 
 # *************HISTOGRAM********************
 # mri_hist = two_dim(img_to_histogram(ImagesOfMri))
@@ -126,18 +128,31 @@ ImagesOfCt = [cv2.imread("images\Train-images\\" + img + ".jpg") for img in Imag
 #
 # CALC_SHOW_PCA_3D(data_hist, "HISTOGRAM")
 
-# *************DAISY********************
-# mri_hist =calc_dsy(ImagesOfMri)
-# ct_hist = two_dim(calc_dsy(ImagesOfCt))
+# *************HOG********************
+HOG(ImagesOfMri)
 
-# data_hist = concatenate_mri_ct(mri_hist, ct_hist)
+# **************CANNY************************
+
+# mri_canny=two_dim(calc_canny(ImagesOfMri))
+# ct_canny=two_dim(calc_canny(ImagesOfCt))
+# data_canny=concatenate_mri_ct(mri_canny,ct_canny)
+# print(len(data_canny[0]))
+# print(len(data_canny[50]))
+# [list(item) for item in mri_canny]
+# norm_image = cv2.normalize(data_canny[0], data_canny[0])
+# print(mri_canny[:3])
+# a=mri_canny[0]
 #
-# CALC_SHOW_PCA_3D(data_hist, "HISTOGRAM")
-# img=cv2.imread("images\Valid-images\\SJA-7-347-g002.jpg")
-# # img_to_dsy =daisy(img, step=15, radius=15, rings=3, histograms=8, orientations=4, normalization='l1', sigmas=None, ring_radii=None, visualize=False)
-# img=two_dim(img)
-# descs_img=daisy(img, step=4, radius=15, rings=3, histograms=8, orientations=8, normalization='l1', sigmas=None, ring_radii=None, visualize=False)
-#
-#
-#
-# print(descs_img)
+# data_canny1=[np.r_[a, np.zeros((356577 - a.shape[0], 117300), dtype=a.dtype)] ]
+# CALC_SHOW_PCA(data_canny1,"CANNY")
+
+# edges = cv2.Canny(ImagesOfMri[5],1,30)
+# # edges = filter.canny(ImagesOfMri[0], sigma=3)
+# plt.subplot(121),
+# plt.imshow(ImagesOfMri[5],cmap = 'gray')
+# plt.title('Original Image'), plt.xticks([]), plt.yticks([])
+# plt.subplot(122),plt.imshow(edges,cmap = 'gray')
+# plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
+# plt.show()
+
+# CALC_SHOW_PCA(data_canny,"CANNY")
