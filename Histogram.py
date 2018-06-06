@@ -36,9 +36,11 @@ def img_to_histogram(images):
     img_to_hist = [norm_hist(hist) for hist in img_to_hist]
     return img_to_hist
 
+
 def norm_hist(hist):
     img_to_hist=cv2.normalize(hist, hist)
     return img_to_hist
+
 
 def calc_avg_hist(array_of_hist):
     """The function get a list names of relevant images end return tha avarage histogram for all images"""
@@ -147,7 +149,9 @@ model_of_pc_ct=img_to_histogram(ImagesOfCt)
 # plt.legend(handles=[mri_patch,ct_patch,valid_patch])
 # plt.show()
 pca_calc(model_of_pc_mri)
+
 pca_calc(model_of_pc_ct)
+
 
 
 
