@@ -28,42 +28,24 @@ def CALC_SHOW_PCA(Data, STRING_MODEL):
     pca = PCA(n_components=3)
     DataPCA = pca.fit(Data).transform(Data)
     target_names = ['MRI', 'CT']
-    group1 = np.full((len(ImagesOfMri)), 0)
-    group2 = np.full((len(ImagesOfCt)), 1)
-    allGroup = np.concatenate((group1, group2), axis=0, out=None)
-    print(len(DataPCA[:][1]))
+    group1 = np.full((len(ImagesOfMri)), 0)#Mri Group=0
+    group2 = np.full((len(ImagesOfCt)), 1)#ct Group=0
+    Group = np.concatenate((group1, group2), axis=0, out=None)#all Groups
+    x = [x for (x ,y , z) in DataPCA]
+    y = [y for (x ,y , z) in DataPCA]
+    z=[z for (x ,y , z) in DataPCA]
 
-    #
-    # # Percentage of variance explained for each components
-    # print('explained variance ratio (first two components): %s'
-    #       % str(pca.explained_variance_ratio_))
-    #
-    # plt.figure()
-    # colors = ['navy', 'turquoise']
-    # lw = 2
-    #
-    # for color, i, target_name in zip(colors, [0, 1], target_names):
-    #     plt.scatter(X_r[y == i, 0], X_r[y == i, 1], X_r[y == i, 2], color=color, alpha=.8, lw=lw,
-    #                 label=target_name)
-    # plt.legend(loc='best', shadow=False, scatterpoints=1)
-    # plt.title('PCA of mri/ct '+STRING_MODEL)
-    # plt.show()
+    fig = pyplot.figure()
+    ax = Axes3D(fig)
+    colors = ['red', 'blue']
+    lw = 2
 
-    ###########
-    # fig = pyplot.figure()
-    # ax = Axes3D(fig)
-    #
-    # sequence_containing_x_vals = DataPCA[0][:]
-    # sequence_containing_y_vals = DataPCA[1][:]
-    # sequence_containing_z_vals = DataPCA[2][:]
-    #
-    # random.shuffle(sequence_containing_x_vals)
-    # random.shuffle(sequence_containing_y_vals)
-    # random.shuffle(sequence_containing_z_vals)
-    #
-    # ax.scatter(sequence_containing_x_vals, sequence_containing_y_vals, sequence_containing_z_vals)
-    # pyplot.show()
+    for color, i, target_name in zip(colors, [0, 1], target_names):#Draw a 3D graph by the colored groups
+      ax.scatter(DataPCA[Group == i, 0], DataPCA[Group == i, 1], DataPCA[Group == i, 2], color=color, alpha=.8, lw=lw, label=target_name)
+    plt.legend(loc='best', shadow=False, scatterpoints=1)
+    plt.title('PCA of mri/ct '+STRING_MODEL)
 
+    pyplot.show()
 
 def img_to_histogram(images):
     # create an array of histogram for all the images
