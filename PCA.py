@@ -1,3 +1,4 @@
+
 import pandas as pd
 import cv2
 from cv2 import *
@@ -26,7 +27,29 @@ import matplotlib.pyplot as plt
 from skimage.feature import hog
 from skimage import data, exposure
 import random
+def CALC_SHOW_PCA_2D(X,STRING_MODEL):
 
+    pca = PCA(n_components=2)
+    X_r = pca.fit(X).transform(X)
+    target_names = ['MRI', 'CT']
+    y = np.full((len(ImagesOfMri)), 0)
+    y1 = np.full((len(ImagesOfCt)), 1)
+    y = np.concatenate((y, y1), axis=0, out=None)
+
+    # Percentage of variance explained for each components
+    print('explained variance ratio (first two components): %s'
+          % str(pca.explained_variance_ratio_))
+
+    plt.figure()
+    colors = ['navy', 'turquoise']
+    lw = 2
+
+    for color, i, target_name in zip(colors, [0, 1], target_names):
+        plt.scatter(X_r[y == i, 0], X_r[y == i, 1], color=color, alpha=.8, lw=lw,
+                    label=target_name)
+    plt.legend(loc='best', shadow=False, scatterpoints=1)
+    plt.title('PCA of mri/ct '+STRING_MODEL)
+    plt.show()
 
 def CALC_SHOW_PCA_3D(Data, STRING_MODEL):
     pca = PCA(n_components=3)
@@ -121,38 +144,19 @@ ImagesOfCt = [cv2.imread("images\Train-images\\" + img + ".jpg") for img in Imag
 # loading all the image that it's answers contain mri or ct
 
 # *************HISTOGRAM********************
-# mri_hist = two_dim(img_to_histogram(ImagesOfMri))
-# ct_hist = two_dim(img_to_histogram(ImagesOfCt))
-#
-# data_hist = concatenate_mri_ct(mri_hist, ct_hist)
-#
-# CALC_SHOW_PCA_3D(data_hist, "HISTOGRAM")
+mri_hist = two_dim(img_to_histogram(ImagesOfMri))
+ct_hist = two_dim(img_to_histogram(ImagesOfCt))
+
+data_hist = concatenate_mri_ct(mri_hist, ct_hist)
+
+CALC_SHOW_PCA_3D(data_hist, "HISTOGRAM")
 
 # *************HOG********************
-HOG(ImagesOfMri)
+# HOG(ImagesOfMri)
 
-# **************CANNY************************
 
-# mri_canny=two_dim(calc_canny(ImagesOfMri))
-# ct_canny=two_dim(calc_canny(ImagesOfCt))
-# data_canny=concatenate_mri_ct(mri_canny,ct_canny)
-# print(len(data_canny[0]))
-# print(len(data_canny[50]))
-# [list(item) for item in mri_canny]
-# norm_image = cv2.normalize(data_canny[0], data_canny[0])
-# print(mri_canny[:3])
-# a=mri_canny[0]
-#
-# data_canny1=[np.r_[a, np.zeros((356577 - a.shape[0], 117300), dtype=a.dtype)] ]
-# CALC_SHOW_PCA(data_canny1,"CANNY")
 
-# edges = cv2.Canny(ImagesOfMri[5],1,30)
-# # edges = filter.canny(ImagesOfMri[0], sigma=3)
-# plt.subplot(121),
-# plt.imshow(ImagesOfMri[5],cmap = 'gray')
-# plt.title('Original Image'), plt.xticks([]), plt.yticks([])
-# plt.subplot(122),plt.imshow(edges,cmap = 'gray')
-# plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
-# plt.show()
 
-# CALC_SHOW_PCA(data_canny,"CANNY")
+
+
+
