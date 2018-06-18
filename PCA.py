@@ -1,4 +1,5 @@
 
+
 import pandas as pd
 import cv2
 from cv2 import *
@@ -73,6 +74,12 @@ def CALC_SHOW_PCA_3D(Data, STRING_MODEL):
     plt.title('PCA of mri/ct '+STRING_MODEL)
 
     pyplot.show()
+
+def calc_dsy(images):
+    img_to_2d= [two_dim(im) for im in images]
+    img_to_dsy = [skimage.feature.daisy(img, step=15, radius=15, rings=3, histograms=8,
+                          orientations=4, normalization='l1', sigmas=None, ring_radii=None, visualize=False_) for img in img_to_2d]
+    return img_to_dsy
 
 def img_to_histogram(images):
     # create an array of histogram for all the images
@@ -154,9 +161,13 @@ CALC_SHOW_PCA_3D(data_hist, "HISTOGRAM")
 # *************HOG********************
 # HOG(ImagesOfMri)
 
+# *******************DAISY**************************
 
+# mri_dsy=two_dim(calc_dsy(ImagesOfMri[0]))
+#
+# ct_dsy=two_dim(calc_dsy(ImagesOfCt[0]))
+#
+# data_dsy=concatenate_mri_ct(mri_dsy,ct_dsy)
 
-
-
-
+# CALC_SHOW_PCA(data_dsy,"daisy")
 
