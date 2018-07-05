@@ -148,9 +148,16 @@ newData= np.concatenate((featuresMri[int(sizeMri*0.8):], featuresCt[int(sizeCt*0
 # make a prediction-predict the class
 ynew = model.predict_classes(newData)
 # show the inputs and predicted outputs
+#
 for i in range(len(newData)):
 	# print("X=%s, Predicted=%s" % (newData[i], ynew[i]))
 	print("Real=%s,Predicted=%s" % (Yreal[i], ynew[i]))
+    # if Yreal[i]==ynew[i]:
+    #     n+=1
+n=[1 for i in range(len(newData)) if Yreal[i]==ynew[i]]
+correct=sum(n)
+print("%s /%s Are correct "%(correct,len(newData)))
+
 
 
 
