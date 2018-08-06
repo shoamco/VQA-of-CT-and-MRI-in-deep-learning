@@ -3,7 +3,6 @@ from keras.preprocessing import image
 from keras.applications.resnet50 import preprocess_input, decode_predictions
 import tensorflow
 import numpy as np
-import pydot
 from matplotlib import pyplot
 import pandas as pd
 from keras.models import Sequential
