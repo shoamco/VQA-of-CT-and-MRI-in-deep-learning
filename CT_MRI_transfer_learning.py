@@ -25,7 +25,11 @@ from keras import models
 from keras import layers
 from keras import optimizers
 
+
 epochs=30
+
+from keras.models import load_model
+
 img_height = img_width = 224
 channels = 3
 if (channels == 1):
@@ -63,7 +67,9 @@ print("Number of test examples: ", test_examples)
 
 vgg_conv = applications.VGG16(include_top=False, input_shape=input_shape)
 
-vgg_conv = VGG16(weights='imagenet', include_top=False, input_shape=input_shape)
+
+# vgg_conv = VGG16(weights='imagenet', include_top=False, input_shape=Input(shape=input_shape))
+
 
 # Freeze the layers except the last 4 layers
 for layer in vgg_conv.layers[:-4]:
@@ -74,11 +80,13 @@ for layer in vgg_conv.layers:
     print(layer, layer.trainable)
 #
 
-
-# Create the model
+#
+# # Create the model
 model = models.Sequential()
 # model.add(Reshape(target_shape=(128, 128, 2), input_shape=list(vgg_conv.output.get_shape().as_list()[1:])))
 
+# load_model
+# model = load_model('modelAfterFirstFit.h5')
 
 # # Add the vgg convolutional base model
 model.add(vgg_conv)
@@ -145,14 +153,17 @@ history = model.fit_generator(
     verbose=1)
 
 y_pred = model.predict_generator(validation_generator, test_examples//val_batchsize, workers=4)
+
 # print(len(y_pred))
 # print(y_pred)
+
 # model.predict_classes(test_x)
 # np.count_nonzero(y_pred == test_y)/len(test_y)
 
 correct = 0
 for i, f in enumerate(validation_generator.filenames):
-    # print(i)
+
+
     # TODO if [0]>[1]
     if f.startswith('ct') and y_pred[i-2][0]>y_pred[i-2][1]:
         correct +=1
@@ -160,7 +171,8 @@ for i, f in enumerate(validation_generator.filenames):
         correct +=1
 
 print('Correct predictions: '+str(correct/len(validation_generator.filenames)) , ", num of images: " , len(validation_generator.filenames))
-# #
+
+
 
 # """## Transfer Learning - Part 2"""
 # # print("im here A !!!!")
