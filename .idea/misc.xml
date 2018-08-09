@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6.1 (C:\Users\Hodaya\AppData\Local\Programs\Python\Python36\python.exe)" project-jdk-type="Python SDK" />
+<<<<<<< HEAD
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (ssd_keras-master) (1)" project-jdk-type="Python SDK" />
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Unknown at C:\Users\כהן\AppData\Local\Programs\Python\Python36\python.exe" project-jdk-type="Python SDK" />
+>>>>>>> 45477691e80603af012a4272b9d38e512fa8c9ec
 </project>

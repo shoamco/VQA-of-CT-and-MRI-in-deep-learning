@@ -2,7 +2,11 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.6.1 (C:\Users\Hodaya\AppData\Local\Programs\Python\Python36\python.exe)" jdkType="Python SDK" />
+<<<<<<< HEAD
+    <orderEntry type="jdk" jdkName="Python 3.6 (ssd_keras-master) (1)" jdkType="Python SDK" />
+=======
+    <orderEntry type="jdk" jdkName="Unknown at C:\Users\כהן\AppData\Local\Programs\Python\Python36\python.exe" jdkType="Python SDK" />
+>>>>>>> 45477691e80603af012a4272b9d38e512fa8c9ec
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">
