@@ -10,8 +10,11 @@
 # Load util
 import keras
 import matplotlib.pyplot as plt
+from keras.applications import Xception # TensorFlow ONLY
 
 from keras.applications import VGG16
+from keras.applications.inception_v3 import InceptionV3
+from keras.applications.resnet50 import ResNet50
 import numpy as np
 import glob
 
@@ -65,7 +68,10 @@ print("Number of test examples: ", test_examples)
 
 #Load the VGG model
 
-vgg_conv = applications.VGG16(include_top=False, input_shape=input_shape)
+vgg_conv = applications.Xception(include_top=False, input_shape=input_shape)
+# vgg_conv = applications.InceptionV3(include_top=False, input_shape=input_shape)
+# vgg_conv = applications.ResNet50(include_top=False, input_shape=input_shape)
+# vgg_conv = applications.VGG16(include_top=False, input_shape=input_shape)
 
 
 # vgg_conv = VGG16(weights='imagenet', include_top=False, input_shape=Input(shape=input_shape))

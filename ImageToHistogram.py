@@ -1183,7 +1183,7 @@ class ImageDataGenerator(object):
     #     params = self.get_random_transform(x.shape, seed)
     #     return self.apply_transform(x, params)
     def random_transform(self, x):
-        print("i am in random tranform")
+        # print("i am in random tranform")
         img_row_axis = self.row_axis - 1
         img_col_axis = self.col_axis - 1
         img_channel_axis = self.channel_axis - 1

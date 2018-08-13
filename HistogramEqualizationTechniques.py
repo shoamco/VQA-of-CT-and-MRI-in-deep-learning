@@ -26,7 +26,7 @@ if K.image_data_format() == "channels_first":
     input_shape = (3, img_rows, img_cols)
 else:
     input_shape = (img_rows, img_cols, 3)
-epochs=1
+epochs=10
 channels = 3
 if (channels == 1):
     color_mode_ = "grayscale"
@@ -34,6 +34,9 @@ else:
     color_mode_ = "rgb"
 
 
+batch_size = 64
+num_classes = 2
+epochs = 1
 
 dataset_folder_path = 'MRI_CT_data'
 train_folder = dataset_folder_path + '/train'
@@ -82,28 +85,70 @@ x_test /= 255
 
 # Initialize Generator
 datagen = img.ImageDataGenerator(contrast_stretching=True, adaptive_equalization=False, histogram_equalization=False)
-#
+
+
+train_generator = datagen.flow_from_directory(
+    train_folder,
+    target_size=(img_rows, img_cols ),
+    batch_size=batch_size,
+    class_mode='categorical',
+    shuffle=True
+)
+
+validation_generator = datagen.flow_from_directory(
+    test_folder,
+    target_size=(img_rows, img_cols),
+    batch_size=batch_size,
+    class_mode='categorical',
+    shuffle=True)
+
+
+
+print("len of x train before eugmantation:")
+print(len(x_train))
+
 # fit parameters from data
 datagen.fit(x_train,True)
 
-batch_size = 64
-num_classes = 2
-epochs = 10
-#
-# model = Sequential()
-# model.add(Conv2D(4, kernel_size=(3, 3), activation='relu', input_shape=input_shape))
-# model.add(Conv2D(8, (3, 3), activation='relu'))
-# model.add(MaxPooling2D(pool_size=(2, 2)))
-# model.add(Dropout(0.25))
-# model.add(Flatten())
-# model.add(Dense(16, activation='relu'))
-# model.add(Dropout(0.5))
-# model.add(Dense(2, activation='softmax'))
-#
-# model.compile(loss=keras.losses.categorical_crossentropy,
-#               optimizer=keras.optimizers.Adadelta(),
-#               metrics=['accuracy'])
-# model.summary()
+print("len of x train after eugmantation:")
+print(len(x_train))
+
+
+train_generator = datagen.flow_from_directory(
+    train_folder,
+    target_size=(img_rows, img_cols ),
+    batch_size=batch_size,
+    class_mode='categorical',
+    shuffle=True,
+    save_to_dir='MRI_CT_data/aug',
+    save_prefix='aug',
+    save_format='jpg'
+)
+
+
+validation_generator = datagen.flow_from_directory(
+    test_folder,
+    target_size=(img_rows, img_cols),
+    batch_size=batch_size,
+    class_mode='categorical',
+    shuffle=True)
+
+
+
+model = Sequential()
+model.add(Conv2D(4, kernel_size=(3, 3), activation='relu', input_shape=input_shape))
+model.add(Conv2D(8, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
+model.add(Flatten())
+model.add(Dense(16, activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(2, activation='softmax'))
+
+model.compile(loss=keras.losses.categorical_crossentropy,
+              optimizer=keras.optimizers.Adadelta(),
+              metrics=['accuracy'])
+model.summary()
 
 
 #Load the VGG model
@@ -150,33 +195,10 @@ model.summary()
 model.compile(loss='categorical_crossentropy',
               optimizer=optimizers.RMSprop(lr=1e-4),
               metrics=['acc'])
-train_datagen = image.ImageDataGenerator(
-    rescale=1. / 255,
-    rotation_range=20,
-    width_shift_range=0.2,
-    height_shift_range=0.2,
-    horizontal_flip=True,
-    fill_mode='nearest')
 
-validation_datagen =image.ImageDataGenerator(
-        rescale=1./255,
-        rotation_range=5,
-        zoom_range=0.2,
-        horizontal_flip=True)
-train_generator = train_datagen.flow_from_directory(
-    train_folder,
-    target_size=(img_rows, img_cols ),
-    batch_size=batch_size,
-    class_mode='categorical')
 
-validation_generator = validation_datagen.flow_from_directory(
-    test_folder,
-    target_size=(img_rows, img_cols),
-    batch_size=batch_size,
-    class_mode='categorical',
-    shuffle=False)
 
-datagen.fit(x_train)
+# datagen.fit(x_train)
 history = model.fit_generator(
     train_generator,
     steps_per_epoch=train_generator.samples / train_generator.batch_size,
@@ -184,3 +206,4 @@ history = model.fit_generator(
     validation_data=validation_generator,
     validation_steps=validation_generator.samples / validation_generator.batch_size,
     verbose=1)
+
