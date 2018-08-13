@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from keras.applications import Xception # TensorFlow ONLY
 
 from keras.applications import VGG16
-from keras.applications.inception_v3 import InceptionV3
+
 from keras.applications.resnet50 import ResNet50
 import numpy as np
 import glob
@@ -27,7 +27,11 @@ from keras import applications
 from keras import models
 from keras import layers
 from keras import optimizers
+from keras.applications import Xception # TensorFlow ONLY
 
+from keras.applications import VGG16
+from keras.applications.inception_v3 import InceptionV3
+from keras.applications.resnet50 import ResNet50
 
 epochs=30
 
@@ -49,16 +53,22 @@ else:
     input_crop = Input(shape=input_shape)
     print(type(input_crop))
 
-dataset_folder_path = 'MRI_CT_data'
+# dataset_folder_path = 'MRI_CT_data'
+dataset_folder_path = 'data'
 train_folder = dataset_folder_path + '/train'
+valid_folder = dataset_folder_path + '/valid'
 test_folder = dataset_folder_path + '/test'
 
-test_files = glob.glob(test_folder + '/**/*.jpg')
 train_files = glob.glob(train_folder + '/**/*.jpg')
+valid_files = glob.glob(valid_folder + '/**/*.jpg')
+test_files = glob.glob(test_folder + '/**/*.jpg')
 
 train_examples = len(train_files)
+valid_examples = len(valid_files)
 test_examples = len(test_files)
+
 print("Number of train examples: " , train_examples)
+print("Number of valid examples: ", valid_examples)
 print("Number of test examples: ", test_examples)
 
 #   Download and extract the doge and cate pictures.
@@ -68,10 +78,11 @@ print("Number of test examples: ", test_examples)
 
 #Load the VGG model
 
-vgg_conv = applications.Xception(include_top=False, input_shape=input_shape)
-# vgg_conv = applications.InceptionV3(include_top=False, input_shape=input_shape)
 # vgg_conv = applications.ResNet50(include_top=False, input_shape=input_shape)
 # vgg_conv = applications.VGG16(include_top=False, input_shape=input_shape)
+# vgg_conv = applications.Xception(include_top=False, input_shape=input_shape)
+vgg_conv = applications.InceptionV3(include_top=False, input_shape=input_shape)
+
 
 
 # vgg_conv = VGG16(weights='imagenet', include_top=False, input_shape=Input(shape=input_shape))
@@ -126,10 +137,17 @@ validation_datagen = ImageDataGenerator(
         rotation_range=5,
         zoom_range=0.2,
         horizontal_flip=True)
+test_datagen = ImageDataGenerator(
+        rescale=1./255,
+        rotation_range=5,
+        zoom_range=0.2,
+        horizontal_flip=True)
 
 # Change the batchsize according to your system RAM
 train_batchsize = 100
 val_batchsize = 10
+test_batchsize = 10
+
 
 train_generator = train_datagen.flow_from_directory(
     train_folder,
@@ -138,11 +156,18 @@ train_generator = train_datagen.flow_from_directory(
     class_mode='categorical')
 
 validation_generator = validation_datagen.flow_from_directory(
-    test_folder,
+    valid_folder,
     target_size=(img_height, img_width),
     batch_size=val_batchsize,
     class_mode='categorical',
     shuffle=False)
+test_generator = test_datagen.flow_from_directory(
+   test_folder,
+    target_size=(img_height, img_width),
+    batch_size=val_batchsize,
+    class_mode='categorical',
+    shuffle=False)
+
 
 
 # Compile the model
@@ -158,7 +183,7 @@ history = model.fit_generator(
     validation_steps=validation_generator.samples / validation_generator.batch_size,
     verbose=1)
 
-y_pred = model.predict_generator(validation_generator, test_examples//val_batchsize, workers=4)
+y_pred = model.predict_generator(test_generator, test_examples//val_batchsize, workers=4)
 
 # print(len(y_pred))
 # print(y_pred)
@@ -167,7 +192,7 @@ y_pred = model.predict_generator(validation_generator, test_examples//val_batchs
 # np.count_nonzero(y_pred == test_y)/len(test_y)
 
 correct = 0
-for i, f in enumerate(validation_generator.filenames):
+for i, f in enumerate(test_generator.filenames):
 
 
     # TODO if [0]>[1]
@@ -176,7 +201,23 @@ for i, f in enumerate(validation_generator.filenames):
     if f.startswith('mri') and y_pred[i-2][1]>=y_pred[i-2][0]:
         correct +=1
 
-print('Correct predictions: '+str(correct/len(validation_generator.filenames)) , ", num of images: " , len(validation_generator.filenames))
+print('Correct predictions: '+str(correct/len(test_generator.filenames)) , ", num of images: " , len(test_generator.filenames))
+
+
+
+
+#
+# ynew = model.predict_classes(newData)
+# # show the inputs and predicted outputs
+# #
+# for i in range(len(newData)):
+# 	# print("X=%s, Predicted=%s" % (newData[i], ynew[i]))
+# 	print("Real=%s,Predicted=%s" % (Yreal[i], ynew[i]))
+#     # if Yreal[i]==ynew[i]:
+#     #     n+=1
+# n=[1 for i in range(len(newData)) if Yreal[i]==ynew[i]]
+# correct=sum(n)
+# print("%s /%s Are correct "%(correct,len(newData)))
 
 
 

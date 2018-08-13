@@ -28,18 +28,13 @@ def open_data():
                     }
     df.replace(to_replace=replace_dict, inplace=True, regex=True)  # replace word
 
-    Mri = df[(~df['Questions'].str.contains(' mri | ct ') & df['Questions'].str.contains('what show') & df[
-        'Answers'].str.contains(' mri ')) == True]
-    Ct = df[(~df['Questions'].str.contains(' mri | ct ') & df['Questions'].str.contains('what show') & df[
-        'Answers'].str.contains(' ct ')) == True]
+    Mri = df[(df['Questions'].str.contains(' mri  ') |  df['Answers'].str.contains(' mri ')) == True]
+    Ct = df[(df['Questions'].str.contains(' ct ') | df['Answers'].str.contains(' ct ')) == True]
 
-    ImagesOfMri = df[(~df['Questions'].str.contains(' mri | ct ') & df['Questions'].str.contains('what show') & df[
-        'Answers'].str.contains(' mri ')) == True]['Images']
-    ImagesOfCt = df[(~df['Questions'].str.contains(' mri | ct ') & df['Questions'].str.contains('what show') & df[
-        'Answers'].str.contains(' ct ')) == True]['Images']
 
-    ImagesMri = ["images\Train-images\\" + img + ".jpg" for img in ImagesOfMri]
-    ImagesCt = ["images\Train-images\\" + img + ".jpg" for img in ImagesOfCt]
+
+    ImagesMri = ["images\Train-images\\" + img + ".jpg" for img in Mri['Images']]
+    ImagesCt = ["images\Train-images\\" + img + ".jpg" for img in Ct['Images']]
 
     writer = ExcelWriter('outputFiles/MRI CT Answers.xlsx')
 
@@ -57,14 +52,21 @@ def open_data():
     y1 = np.full((len(ImagesCt[:int(sizeCt*0.8)])), 1)
     TrainLabel= np.concatenate((y, y1), axis=0, out=None)
 
-    validData= np.concatenate((ImagesMri[int(sizeMri*0.8):], ImagesCt[int(sizeCt*0.8):]), axis=0, out=None)
-    y = np.full((len(ImagesMri[int(sizeMri*0.8):])), 0)
-    y1 = np.full((len(ImagesCt[int(sizeCt*0.8):])), 1)
+    validData= np.concatenate((ImagesMri[int(sizeMri*0.8):int(sizeMri*0.9)], ImagesCt[int(sizeCt*0.8):int(sizeCt*0.9)]), axis=0, out=None)
+    y = np.full((len(ImagesMri[int(sizeMri*0.8):int(sizeMri*0.9)])), 0)
+    y1 = np.full((len(ImagesCt[int(sizeCt*0.8):int(sizeCt*0.9)])), 1)
     validLabel=np.concatenate((y, y1), axis=0, out=None)
+    
+    
+    testData= np.concatenate((ImagesMri[int(sizeMri*0.9):], ImagesCt[int(sizeCt*0.9):]), axis=0, out=None)
+    y = np.full((len(ImagesMri[int(sizeMri*0.9):])), 0)
+    y1 = np.full((len(ImagesCt[int(sizeCt*0.9):])), 1)
+    testLabel=np.concatenate((y, y1), axis=0, out=None)
 
     SizeTrain=len(TrainData)
     test_examples=len(validData)
-    return (TrainData,TrainLabel,validData,validLabel,SizeTrain,test_examples)
+    SizeTest = len(testData)
+    return (TrainData,TrainLabel,validData,validLabel,SizeTrain,test_examples,SizeTest,testData,testLabel)
 
 # Divide images into folders of train valid test
 # In which each folder has a partition of CT MRI
@@ -72,7 +74,7 @@ def open_data():
 
 
 def Divide_images_into_folders():
-    TrainData, TrainLabel, validData, validLabel,SizeTrain,test_examples=open_data()
+    TrainData, TrainLabel, validData, validLabel,SizeTrain,test_examples,SizeTest,testData,testLabel=open_data()
     makedirs('data')
     train_folder = 'data/train'
     valid_folder="data/valid"
@@ -80,12 +82,16 @@ def Divide_images_into_folders():
 
     if isdir(train_folder):  # if directory already exists
         shutil.rmtree(train_folder)
-    if isdir(test_folder):  # if directory already exists
+    if isdir(valid_folder):  # if directory already exists
         shutil.rmtree(valid_folder)
+    if isdir(test_folder):  # if directory already exists
+            shutil.rmtree(test_folder)
     makedirs(train_folder + '/ct/')
     makedirs(train_folder + '/mri/')
     makedirs(valid_folder + '/ct/')
     makedirs(valid_folder + '/mri/')
+    makedirs(test_folder + '/ct/')
+    makedirs(test_folder + '/mri/')
 
 
 
@@ -100,7 +106,11 @@ def Divide_images_into_folders():
             shutil.copy2(f, valid_folder + '/mri/')
         else:
             shutil.copy2(f, valid_folder + '/ct/')
-
+    for f, i in zip(testData,testLabel):
+        if i == 0:
+            shutil.copy2(f, test_folder + '/mri/')
+        else:
+            shutil.copy2(f, test_folder + '/ct/')
 # Data pre-processing and data augmentation
 if not os.path.exists('data'):
   Divide_images_into_folders()
