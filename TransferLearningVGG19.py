@@ -10,7 +10,8 @@ img_width, img_height = 256, 256
 # train_data_dir = "data/train"
 # validation_data_dir = "data/valid"
 
-dataset_folder_path = 'MRI_CT_data'
+# dataset_folder_path = 'MRI_CT_data'
+dataset_folder_path = 'data'
 train_data_dir = dataset_folder_path + '/train'
 validation_data_dir = dataset_folder_path + '/test'
 
