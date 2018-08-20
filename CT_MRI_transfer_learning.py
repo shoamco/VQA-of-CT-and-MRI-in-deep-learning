@@ -89,7 +89,7 @@ vgg_conv = applications.InceptionV3(include_top=False, input_shape=input_shape)
 
 
 # Freeze the layers except the last 4 layers
-for layer in vgg_conv.layers[:-4]:
+for layer in vgg_conv.layers[:-6]:
     layer.trainable = False
 
 # Check the trainable status of the individual layers
@@ -185,11 +185,6 @@ history = model.fit_generator(
 
 y_pred = model.predict_generator(test_generator, test_examples//val_batchsize, workers=4)
 
-# print(len(y_pred))
-# print(y_pred)
-
-# model.predict_classes(test_x)
-# np.count_nonzero(y_pred == test_y)/len(test_y)
 
 correct = 0
 for i, f in enumerate(test_generator.filenames):

@@ -28,7 +28,7 @@ replace_dict = {"magnetic resonance imaging":"mri",
                     # " a ":' ',' is ':' ',
                 }
 df.replace(to_replace=replace_dict, inplace=True, regex=True)#replace word
-
+df.replace(to_replace=replace_dict, inplace=True, regex=True)#replace word
 
 
 
@@ -66,3 +66,37 @@ writer.save()
 #
 # df_ctSpine = df[df['Questions'].str.contains('ct')& df['Questions'].str.contains('spine')]#ct spine
 # arrow=df[df['Questions'].str.contains(' arrow')]#Only questions about arrow
+
+def exract_data_to_excel():
+    df = pd.read_csv('InputFiles/dataset.csv',
+                     names=['Images', 'Questions', 'Answers'])  # open csv file and rename columns
+    VQAM = pd.read_csv('InputFiles/VQAM.csv',
+                       names=['Images', 'Questions', 'Answers'])  # open csv file and rename columns
+
+
+    df.replace(to_replace=replace_dict, inplace=True, regex=True)  # replace word
+    VQAM.replace(to_replace=replace_dict, inplace=True, regex=True)  # replace word
+
+    Mri = df[(df['Questions'].str.contains(' mri  ') | df['Answers'].str.contains(' mri ')) == True]
+    Ct = df[(df['Questions'].str.contains(' ct ') | df['Answers'].str.contains(' ct ')) == True]
+    CtMriVal = VQAM[(~VQAM['Questions'].str.contains(' mri | ct ') & VQAM[
+        'Answers'].str.contains('mri| ct')) == True]
+
+
+    writer = ExcelWriter('outputFiles/MRI CT Answers.xlsx')
+
+    Mri.to_excel(writer, 'ImagesOfMri', index=False)
+    Ct.to_excel(writer, 'ImagesOfCt', index=False)
+
+    writer.save()
+
+
+    writer.save()
+
+    writer = ExcelWriter('outputFiles/MRI CT Answers Validation2.xlsx')
+    CtMriVal.to_excel(writer, 'ImagesOfCtMriVal', index=False)
+    writer.save()
+
+
+exract_data_to_excel()
+
