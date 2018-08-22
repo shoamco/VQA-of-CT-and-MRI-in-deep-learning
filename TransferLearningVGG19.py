@@ -10,6 +10,8 @@ from keras.applications import Xception
 
 from keras.applications import VGG16
 from keras.applications.inception_v3 import InceptionV3
+from sklearn.ensemble import RandomForestClassifier
+
 
 import csv
 import pandas as pd
@@ -53,14 +55,15 @@ model = applications.VGG19(weights = "imagenet", include_top=False, input_shape 
 
 
 # Freeze the layers which you don't want to train. Here I am freezing the first 5 layers.
-for layer in model.layers[:5]:
+for layer in model.layers[:-5]:
     layer.trainable = False
 
 #Adding custom Layers
 x = model.output
 x = Flatten()(x)
-x = Dense(1024, activation="relu")(x)
-x = Dropout(0.5)(x)
+x = Dense(50, activation="relu")(x)
+# x = Dense(1024, activation="relu")(x)
+x = Dropout(0.2)(x)
 # x = Dense(1024, activation="relu")(x)
 predictions = Dense(2, activation="softmax")(x)
 
@@ -164,11 +167,11 @@ print('Correct predictions: '+str(correct/len(test_generator.filenames)) , ", nu
 
 print(MriOrCt)
 
-dfANS = pd.read_excel(open('outputFiles/MRI CT Answers Validation2.xlsx','rb'))
+dfANS = pd.read_excel(open('outputFiles/VQA_TestSet.xlsx','rb'))
 
 print(type(dfANS))
 dfANS = dfANS.set_index('Answers')
 dfANS['Answers'] =MriOrCt
-writer = ExcelWriter('outputFiles/MRI CT Answers Validation2.xlsx')
+writer = ExcelWriter('FinelFiles/VQA_TestSet_Res.xlsx')
 dfANS.to_excel(writer, 'ImagesOfCtMriVal', index=False)
 writer.save()
