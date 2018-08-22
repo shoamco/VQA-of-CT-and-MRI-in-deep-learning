@@ -12,8 +12,7 @@ import nltk
 import time
 
 df = pd.read_csv('InputFiles/dataset.csv',names=['Images','Questions','Answers'])#open csv file and rename columns
-VQA_TestSetMriCt = pd.read_csv('FinelFiles/VQA_TestSet.csv',names=['Images','Questions','Answers'])#open csv file and rename columns
-VQAM2 = pd.read_csv('VQAM.csv',names=['Images', 'Questions','Answers'])
+# df = pd.read_csv('VQAM.csv',names=['Images', 'Questions','Answers'])
 
 # dictionary of replaceable words
 replace_dict = {"magnetic resonance imaging":"mri",
@@ -28,6 +27,7 @@ replace_dict = {"magnetic resonance imaging":"mri",
                 "does":"","do ":"","the":"",
                     # " a ":' ',' is ':' ',
                 }
+df.replace(to_replace=replace_dict, inplace=True, regex=True)#replace word
 df.replace(to_replace=replace_dict, inplace=True, regex=True)#replace word
 
 
@@ -79,16 +79,10 @@ def exract_data_to_excel():
 
     Mri = df[(df['Questions'].str.contains(' mri  ') | df['Answers'].str.contains(' mri ')) == True]
     Ct = df[(df['Questions'].str.contains(' ct ') | df['Answers'].str.contains(' ct ')) == True]
+    CtMriVal = VQAM[(~VQAM['Questions'].str.contains(' mri | ct ') & VQAM[
+        'Answers'].str.contains('mri| ct')) == True]
 
 
-    MriVal = VQAM[(~VQAM['Questions'].str.contains(' mri | ct ') & VQAM[
-        'Answers'].str.contains('mri')) == True]
-
-    CtVal = VQAM[(~VQAM['Questions'].str.contains(' mri | ct ') & VQAM[
-        'Answers'].str.contains(' ct')) == True]
-
-    dfANS = VQAM[(~VQAM['Questions'].str.contains(' mri | ct ') & VQAM[
-        'Answers'].str.contains('mri | ct')) == True]
     writer = ExcelWriter('outputFiles/MRI CT Answers.xlsx')
 
     Mri.to_excel(writer, 'ImagesOfMri', index=False)
@@ -96,20 +90,12 @@ def exract_data_to_excel():
 
     writer.save()
 
-    writer = ExcelWriter('outputFiles/MRI CT Answers Validation.xlsx')
-
-    MriVal.to_excel(writer, 'ImagesOfMri', index=False)
-    CtVal.to_excel(writer, 'ImagesOfCt', index=False)
 
     writer.save()
-    test = df[(df['Answers'].str.contains(' mri |mri | mri| ct |ct | ct')) == True]
 
-    writer = ExcelWriter('outputFiles/df.xlsx')
-
-
-    test.to_excel(writer, 'test', index=False)
-
+    writer = ExcelWriter('outputFiles/MRI CT Answers Validation2.xlsx')
+    CtMriVal.to_excel(writer, 'ImagesOfCtMriVal', index=False)
     writer.save()
+
 
 exract_data_to_excel()
-
