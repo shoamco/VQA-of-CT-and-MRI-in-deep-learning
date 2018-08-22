@@ -46,7 +46,7 @@ print("Number of test examples: ", nb_validation_samples)
 print("Number of test examples: ", nb_test_samples)
 channels = 3
 batch_size = 10
-epochs =30
+epochs =15
 model = applications.VGG19(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
 # model = applications.Xception(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
 # model = applications.InceptionV3(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
@@ -55,7 +55,7 @@ model = applications.VGG19(weights = "imagenet", include_top=False, input_shape 
 
 
 # Freeze the layers which you don't want to train. Here I am freezing the first 5 layers.
-for layer in model.layers[:-5]:
+for layer in model.layers[:-10]:
     layer.trainable = False
 
 #Adding custom Layers
@@ -63,7 +63,7 @@ x = model.output
 x = Flatten()(x)
 x = Dense(50, activation="relu")(x)
 # x = Dense(1024, activation="relu")(x)
-x = Dropout(0.2)(x)
+x = Dropout(0.5)(x)
 # x = Dense(1024, activation="relu")(x)
 predictions = Dense(2, activation="softmax")(x)
 

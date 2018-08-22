@@ -89,7 +89,7 @@ vgg_conv = applications.InceptionV3(include_top=False, input_shape=input_shape)
 
 
 # Freeze the layers except the last 4 layers
-for layer in vgg_conv.layers[:-6]:
+for layer in vgg_conv.layers[:5]:
     layer.trainable = False
 
 # Check the trainable status of the individual layers
