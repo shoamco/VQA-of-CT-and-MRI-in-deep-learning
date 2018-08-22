@@ -1,4 +1,5 @@
 import pandas as pd
+
 import os
 import numpy as np
 from os.path import isdir
@@ -36,23 +37,24 @@ def saveDataInExcel(mriData, ctData, name_file):
     writer.save()
 
 
-def Up_sample_Minority_Class(df_majority, df_minority):
-    n_samples = len(df_majority)
-    print(n_samples)
-    # Upsample minority class
-    df_minority_upsampled = resample(df_minority,
-                                     replace=True,  # sample with replacement
-                                     n_samples=n_samples,  # to match majority class
-                                     random_state=50
 
-                                     )  # reproducible results
 
-    # Combine majority class with upsampled minority class
-    df_upsampled = pd.concat([df_majority, df_minority_upsampled])
+def balance_data(df_majority,df_minority):
+   n_samples=len(df_majority)
+   print(n_samples)
+   # Upsample minority class
+   df_minority_upsampled = resample(df_minority,
+                            replace=True,  # sample with replacement
+                            n_samples=n_samples,  # to match majority class
 
-    # Display new class counts
-    # print(df_upsampled.balance.value_counts())
-    return df_upsampled
+                            )  # reproducible results
+
+   # Combine majority class with upsampled minority class
+   df_upsampled = pd.concat([df_majority, df_minority_upsampled])
+
+   # Display new class counts
+   # print(df_upsampled.balance.value_counts())
+   return df_upsampled
 
 
 def Tree_Based_Algorithms(df_majority, df_minority):
@@ -64,28 +66,29 @@ def Tree_Based_Algorithms(df_majority, df_minority):
     print(type(clf_4))
 
 
+
 # The function get images of ct mri,Makes a balance,And returns the data and the label
 def LabelAndBalance(MriImages, CtImages):
-    MriImages = MriImages.to_frame()
-    CtImages = CtImages.to_frame()
-    MriImages['balance'] = np.full(len(MriImages), 1)  # adding a label for each rows ('1'=mri)
-    CtImages['balance'] = np.full(len(CtImages), 0)
+   MriImages=MriImages.to_frame()
+   CtImages=CtImages.to_frame()
+   MriImages['balance'] = np.full(len(MriImages), 1)  # adding a label for each rows ('1'=mri)
+   CtImages['balance'] = np.full(len(CtImages), 0)
 
-    df_majority, df_minority = (MriImages, CtImages) if len(MriImages) >= len(CtImages) else (CtImages, MriImages)
-    # print(df_majority)
-    print(' df_majority: ' + str(len(df_majority)) + ' ,df_minority:' + str(len(df_minority)))
 
-    # dfBalance = Up_sample_Minority_Class(df_majority,df_minority)
+   df_majority,df_minority = (MriImages, CtImages) if len(MriImages['balance']) >= len(CtImages['balance']) else (CtImages, MriImages)
+   # print(df_majority)
+   # print('**********************************************************************')
+   # print(df_minority)
+   dfBalance = balance_data(df_majority,df_minority)
 
-    # Tree_Based_Algorithms(df_majority,df_minority)
+   DataImages = ["images\Train-images\\" + row['Images'] + ".jpg" for index, row in dfBalance.iterrows()]
+   Label = [row['balance'] for index, row in dfBalance.iterrows()]
 
-    dfBalance = [MriImages, CtImages]
-    dfBalance = pd.concat(dfBalance)
+   return (DataImages, Label)
 
-    DataImages = ["images\Train-images\\" + row['Images'] + ".jpg" for index, row in dfBalance.iterrows()]
-    Label = [row['balance'] for index, row in dfBalance.iterrows()]
 
-    return (DataImages, Label)
+
+
 
 
 def open_data():
@@ -191,99 +194,104 @@ def open_data():
 # Divide images into folders of train valid test
 # In which each folder has a partition of CT MRI
 # (To be able to use the model of keras)
+
 def Divide_images_into_folders():
-    TrainData, TrainLabel, validData, validLabel, SizeTrain, SizeValid, SizeTest, testData, testLabel = open_data()
-    makedirs('data')
+   TrainData, TrainLabel, validData, validLabel, SizeTrain, SizeValid, SizeTest, testData, testLabel = open_data()
+   makedirs('data')
 
-    train_folder = 'data/train'
-    valid_folder = "data/valid"
-    test_folder = 'data/test'
+   train_folder = 'data/train'
+   valid_folder = "data/valid"
+   test_folder = 'data/test'
 
-    if isdir(train_folder):  # if directory already exists
-        shutil.rmtree(train_folder)
-    if isdir(valid_folder):  # if directory already exists
-        shutil.rmtree(valid_folder)
-    if isdir(test_folder):  # if directory already exists
-        shutil.rmtree(test_folder)
-    makedirs(train_folder + '/ct/')
-    makedirs(train_folder + '/mri/')
-    makedirs(valid_folder + '/ct/')
-    makedirs(valid_folder + '/mri/')
-    makedirs(test_folder + '/ct/')
-    makedirs(test_folder + '/mri/')
 
-    for f, i in zip(TrainData, TrainLabel):  ##train folder
-        basename = os.path.basename(f)
-        head, tail = os.path.splitext(basename)
 
-        if i == 0:
-            dst_dir = train_folder + '/mri/'
-            dst_file = os.path.join(dst_dir, basename)
-            # if not os.path.exists(dst_file):
+
+
+   if isdir(train_folder):  # if directory already exists
+      shutil.rmtree(train_folder)
+   if isdir(valid_folder):  # if directory already exists
+      shutil.rmtree(valid_folder)
+   if isdir(test_folder):  # if directory already exists
+      shutil.rmtree(test_folder)
+   makedirs(train_folder + '/ct/')
+   makedirs(train_folder + '/mri/')
+   makedirs(valid_folder + '/ct/')
+   makedirs(valid_folder + '/mri/')
+   makedirs(test_folder + '/ct/')
+   makedirs(test_folder + '/mri/')
+
+   for f, i in zip(TrainData, TrainLabel):##train folder
+      basename = os.path.basename(f)
+      head, tail = os.path.splitext(basename)
+
+      if i == 0:
+         dst_dir=train_folder + '/mri/'
+         dst_file = os.path.join(dst_dir, basename)
+         if not os.path.exists(dst_file):
+             shutil.copy2(f, dst_dir)
+         else:
+            count = 0
+            dst_file1=dst_file
+            while os.path.exists(dst_file1):
+               count += 1
+               dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
+            # print 'Renaming %s to %s' % (file, dst_file)
+            os.rename(dst_file, dst_file1)
             shutil.copy2(f, dst_dir)
-            # else:
-            #     count = 0
-            #     dst_file1 = dst_file
-            #     while os.path.exists(dst_file1):
-            #         count += 1
-            #         dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
-            #     # print 'Renaming %s to %s' % (file, dst_file)
-            #     os.rename(dst_file, dst_file1)
-            #     shutil.copy2(f, dst_dir)
 
-        else:
-            dst_dir = train_folder + '/ct/'
-            dst_file = os.path.join(dst_dir, basename)
-            # if not os.path.exists(dst_file):
+      else:
+         dst_dir = train_folder + '/ct/'
+         dst_file = os.path.join(dst_dir, basename)
+         if not os.path.exists(dst_file):
             shutil.copy2(f, dst_dir)
-            # else:
-            #     count = 0
-            #     dst_file1 = dst_file
-            #     while os.path.exists(dst_file1):
-            #         count += 1
-            #         dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
-            #     # print 'Renaming %s to %s' % (file, dst_file)
-            #     os.rename(dst_file, dst_file1)
-            #     shutil.copy2(f, dst_dir)
+         else:
+            count = 0
+            dst_file1 = dst_file
+            while os.path.exists(dst_file1):
+               count += 1
+               dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
+            # print 'Renaming %s to %s' % (file, dst_file)
+            os.rename(dst_file, dst_file1)
+            shutil.copy2(f, dst_dir)
 
-    for f, i in zip(validData, validLabel):  ##valid folder
+   for f, i in zip(validData, validLabel):##valid folder
 
-        basename = os.path.basename(f)
-        if i == 0:
-            dst_dir = valid_folder + '/mri/'
-            dst_file = os.path.join(dst_dir, basename)
-            # if not os.path.exists(dst_file):
+      basename = os.path.basename(f)
+      if i == 0:
+         dst_dir = valid_folder + '/mri/'
+         dst_file = os.path.join(dst_dir, basename)
+         if not os.path.exists(dst_file):
             shutil.copy2(f, dst_dir)
-            # else:
-            #     count = 0
-            #     dst_file1 = dst_file
-            #     while os.path.exists(dst_file1):
-            #         count += 1
-            #         dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
-			#
-            #     os.rename(dst_file, dst_file1)
-            #     shutil.copy2(f, dst_dir)
-        else:
-            dst_dir = valid_folder + '/ct/'
-            dst_file = os.path.join(dst_dir, basename)
-            # if not os.path.exists(dst_file):
+         else:
+            count = 0
+            dst_file1 = dst_file
+            while os.path.exists(dst_file1):
+               count += 1
+               dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
+
+            os.rename(dst_file, dst_file1)
             shutil.copy2(f, dst_dir)
-            # else:
-            #     count = 0
-            #     dst_file1 = dst_file
-            #     while os.path.exists(dst_file1):
-            #         count += 1
-            #         dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
-			#
-            #     os.rename(dst_file, dst_file1)
-            #     shutil.copy2(f, dst_dir)
-    for f, i in zip(testData, testLabel):  ##test folder
-        if i == 0:
-            shutil.copy2(f, test_folder + '/mri/')
-        else:
-            shutil.copy2(f, test_folder + '/ct/')
+      else:
+         dst_dir = valid_folder + '/ct/'
+         dst_file = os.path.join(dst_dir, basename)
+         if not os.path.exists(dst_file):
+            shutil.copy2(f, dst_dir)
+         else:
+            count = 0
+            dst_file1 = dst_file
+            while os.path.exists(dst_file1):
+               count += 1
+               dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
+
+            os.rename(dst_file, dst_file1)
+            shutil.copy2(f, dst_dir)
+   for f, i in zip(testData, testLabel):##test folder
+      if i == 0:
+         shutil.copy2(f, test_folder + '/mri/')
+      else:
+         shutil.copy2(f, test_folder + '/ct/')
 
 
 # Data pre-processing and data augmentation
 if not os.path.exists('data'):
-    Divide_images_into_folders()
+   Divide_images_into_folders()
