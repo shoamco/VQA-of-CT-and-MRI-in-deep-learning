@@ -146,13 +146,13 @@ for i, f in enumerate(test_generator.filenames):
     if y_pred[i][0]>y_pred[i][1]:
         # if the prediction gives ct as an answer
         MriOrCt.append('ct')
-        print("ct")
+        # print("ct")
         if f.startswith('ct'):
             # if the pridiction is correct
             correct += 1
     if y_pred[i][1]>=y_pred[i][0]:
         # if the prediction gives mri as an answer
-        print("mri")
+        # print("mri")
         MriOrCt.append('mri')
         if f.startswith('mri'):
             # if the pridiction is correct
