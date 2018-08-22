@@ -75,12 +75,16 @@ def LabelAndBalance(MriImages, CtImages):
     # print(df_majority)
     print(' df_majority: ' + str(len(df_majority)) + ' ,df_minority:' + str(len(df_minority)))
 
-    # dfBalance = Up_sample_Minority_Class(df_majority,df_minority)
+    dfBalance = Up_sample_Minority_Class(df_majority,df_minority)
 
     # Tree_Based_Algorithms(df_majority,df_minority)
 
-    dfBalance = [MriImages, CtImages]
-    dfBalance = pd.concat(dfBalance)
+    dfBalance = balance_data(df_majority, df_minority)
+
+    DataImages = ["images\Train-images\\" + row['Images'] + ".jpg" for index, row in dfBalance.iterrows()]
+    Label = [row['balance'] for index, row in dfBalance.iterrows()]
+
+    return (DataImages, Label)
 
     DataImages = ["images\Train-images\\" + row['Images'] + ".jpg" for index, row in dfBalance.iterrows()]
     Label = [row['balance'] for index, row in dfBalance.iterrows()]
