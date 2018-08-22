@@ -336,10 +336,10 @@ call _evaluate method with path of submitted file as argument
 if __name__ == "__main__":
 
   #Ground truth file-Their answers
-  gt_file_path = "outputFiles/gt.csv"#
+  gt_file_path = "FinelFiles/res.csv"#
   # gt_file_path = "testSet.csv"#
   #Submission file-Our answers
-  submission_file_path = "outputFiles/res.csv"
+  submission_file_path = "FinelFiles/gt.csv"
   # submission_file_path = "testSet.csv"
   # submission_file_path = "gt.csv"
   # submission_file_path = "runs/03_wrong_qaid_imageid_pair.csv"

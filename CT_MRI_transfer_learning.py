@@ -190,64 +190,120 @@ y_pred = model.predict_generator(test_generator, test_examples//val_batchsize, w
 
 # model.predict_classes(test_x)
 # np.count_nonzero(y_pred == test_y)/len(test_y)
-
+MriOrCt=[]
 correct = 0
 for i, f in enumerate(test_generator.filenames):
 
-
-    # TODO if [0]>[1]
-    if f.startswith('ct') and y_pred[i-2][0]>y_pred[i-2][1]:
-        correct +=1
-    if f.startswith('mri') and y_pred[i-2][1]>=y_pred[i-2][0]:
-        correct +=1
+    if y_pred[i-2][0]>y_pred[i-2][1]:
+        MriOrCt.append('ct')
+        print("ct")
+        if f.startswith('ct'):
+            correct += 1
+    if y_pred[i-2][1]>=y_pred[i-2][0]:
+        print("mri")
+        MriOrCt.append('mri')
+        if f.startswith('mri'):
+            correct += 1
+    # if f.startswith('ct') and y_pred[i-2][0]>y_pred[i-2][1]:
+    #     correct +=1
+    # if f.startswith('mri') and y_pred[i-2][1]>=y_pred[i-2][0]:
+    #     correct +=1
 
 print('Correct predictions: '+str(correct/len(test_generator.filenames)) , ", num of images: " , len(test_generator.filenames))
 
+# adding the correctanswers to the validation file
+MriOrCt = np.array(MriOrCt)
+MriOrCt = pd.Series(MriOrCt)
 
+writer = pd.ExcelWriter('outputFiles/MRI CT Answers Validation.xlsx', engine='openpyxl')
+wb = writer.book
+dfANS = dfANS.set_index('Answers')
 
+dfANS['Answers'] = MriOrCt
 
-#
-# ynew = model.predict_classes(newData)
-# # show the inputs and predicted outputs
-# #
-# for i in range(len(newData)):
-# 	# print("X=%s, Predicted=%s" % (newData[i], ynew[i]))
-# 	print("Real=%s,Predicted=%s" % (Yreal[i], ynew[i]))
-#     # if Yreal[i]==ynew[i]:
-#     #     n+=1
-# n=[1 for i in range(len(newData)) if Yreal[i]==ynew[i]]
-# correct=sum(n)
-# print("%s /%s Are correct "%(correct,len(newData)))
+dfANS.to_excel(writer, index=False)
+wb.save('outputFiles/MRI CT Answers Validation for check.xlsx')
+# *********************************************
 
+# *************** Up-sample Minority Class ************
 
+from sklearn.utils import resample
+# First, we'll separate observations from each class into different DataFrames.
+# Next, we'll resample the minority class with replacement, setting the number of samples to match that of the majority class.
+# Finally, we'll combine the up-sampled minority class DataFrame with the original majority class DataFrame.
 
-# """## Transfer Learning - Part 2"""
-# # print("im here A !!!!")
-# vgg16 = applications.VGG16(include_top=False, weights='imagenet', input_shape=input_shape)
-# combinedModel = Model(inputs= vgg16.input, outputs= model(vgg16.output))
-#
-# for layer in combinedModel.layers[:-3]:
-#     layer.trainable = False
-# # model.add(Reshape(target_shape=(128, 128, 2), input_shape=list(model.output.get_shape().as_list()[1:])))
-#
-# vggCNN = VGG16(weights='imagenet', include_top=False, input_shape=input_shape)
-# vggCNN.summary()
-# print("im here !!!!")
-# # model = Sequential()
-# combinedModel = Model(inputs= vggCNN.input, outputs= model(vggCNN.output))
-# print("im here  B !!!!")
-# for layer in combinedModel.layers[:-3]:
-#     layer.trainable = False
-#
-# combinedModel.compile(loss='binary_crossentropy',
-#               optimizer = optimizers.RMSprop(lr=1e-4, decay=0.9), # optimizers.SGD(lr=1e-4, momentum=0.9)
-#               metrics=['accuracy'])
-#
-#
-# # fine-tune the model# fine-
-# combinedModel.fit_generator(
-#     train_generator,
-#     steps_per_epoch=train_examples//train_batchsize,
-#     epochs=5,
-#     validation_data=validation_generator,
-#     validation_steps=test_examples//val_batchsize) # len(valid_generator.filenames)
+# Separate majority and minority classes
+df_majority = dfANS[dfANS.balance == 0]
+df_minority = dfANS[dfANS.balance == 1]
+
+# Upsample minority class
+df_minority_upsampled = resample(df_minority,
+                                 replace=True,  # sample with replacement
+                                 n_samples=7,  # to match majority class
+                                 random_state=123)  # reproducible results
+
+# Combine majority class with upsampled minority class
+df_upsampled = pd.concat([df_majority, df_minority_upsampled])
+
+# Display new class counts
+df_upsampled.balance.value_counts()
+
+# ******************* Penalize Algorithms (Cost-Sensitive Training) ************************
+from sklearn.metrics import roc_auc_score
+
+# Separate input features (X) and target variable (y)
+y = dfANS.balance
+X = dfANS.drop('balance', axis=1)
+
+# Train model
+clf_3 = SVC(kernel='linear',
+            class_weight='balanced',  # penalize
+            probability=True)
+
+clf_3.fit(X, y)
+
+# Predict on training set
+pred_y_3 = clf_3.predict(X)
+
+# Is our model still predicting just one class?
+print(np.unique(pred_y_3))
+# [0 1]
+
+# How's our accuracy?
+print(accuracy_score(y, pred_y_3))
+# 0.688
+
+# What about AUROC?
+prob_y_3 = clf_3.predict_proba(X)
+prob_y_3 = [p[1] for p in prob_y_3]
+print(roc_auc_score(y, prob_y_3))
+# 0.5305236678
+
+# *********************** Use Tree-Based Algorithms **************************
+
+from sklearn.ensemble import RandomForestClassifier
+
+# Separate input features (X) and target variable (y)
+y = dfANS.balance
+X = dfANS.drop('balance', axis=1)
+
+# Train model
+clf_4 = RandomForestClassifier()
+clf_4.fit(X, y)
+
+# Predict on training set
+pred_y_4 = clf_4.predict(X)
+
+# Is our model still predicting just one class?
+print(np.unique(pred_y_4))
+# [0 1]
+
+# How's our accuracy?
+print(accuracy_score(y, pred_y_4))
+# 0.9744
+
+# What about AUROC?
+prob_y_4 = clf_4.predict_proba(X)
+prob_y_4 = [p[1] for p in prob_y_4]
+print(roc_auc_score(y, prob_y_4))
+# 0.999078798186
