@@ -1,5 +1,5 @@
-import pandas as pd
 
+import pandas as pd
 import os
 import numpy as np
 from os.path import isdir
@@ -7,6 +7,7 @@ from os import makedirs
 import shutil
 from pandas import ExcelWriter
 import warnings
+import random
 
 warnings.filterwarnings("ignore")
 from sklearn.ensemble import RandomForestClassifier
@@ -36,7 +37,12 @@ def saveDataInExcel(mriData, ctData, name_file):
     ctData.to_excel(writer, 'Ct', index=False)
     writer.save()
 
+def saveTestSetForAnswers(mriData, ctData, name_file):
+    writer = ExcelWriter('FinelFiles/' + name_file + '.xlsx')
 
+    allData = pd.concat([mriData, ctData])
+    allData.to_excel(writer, index=False)
+    writer.save()
 
 
 def balance_data(df_majority,df_minority):
@@ -73,14 +79,15 @@ def LabelAndBalance(MriImages, CtImages):
    CtImages=CtImages.to_frame()
    MriImages['balance'] = np.full(len(MriImages), 1)  # adding a label for each rows ('1'=mri)
    CtImages['balance'] = np.full(len(CtImages), 0)
-
+   dfToCsv = pd.concat([CtImages, MriImages])
+   dfToCsv.to_csv('FinelFiles/VQA_TrainingLabelSet.csv', encoding='utf-8')
 
    df_majority,df_minority = (MriImages, CtImages) if len(MriImages['balance']) >= len(CtImages['balance']) else (CtImages, MriImages)
    # print(df_majority)
    # print('**********************************************************************')
    # print(df_minority)
-   dfBalance = balance_data(df_majority,df_minority)
-
+   # dfBalance = balance_data(df_majority,df_minority)
+   dfBalance=dfToCsv
    DataImages = ["images\Train-images\\" + row['Images'] + ".jpg" for index, row in dfBalance.iterrows()]
    Label = [row['balance'] for index, row in dfBalance.iterrows()]
 
@@ -123,10 +130,25 @@ def open_data():
         ' mri |mri | mri')) == True]  # get all the Mri releted rows
 
     CtData = df[((df['Questions'].str.contains(' ct |ct | ct') | df['Answers'].str.contains(' ct |ct | ct'))) == True]
+    # # print(MriData)
+
+    # MriData = df[((df['Questions'].str.contains(' mri |mri | mri') | df['Answers'].str.contains(' mri |mri | mri'))&df['Answers'].str.contains('mri')) == True]  # get all the Mri releted rows
+	#
+    # CtData = df[(((df['Questions'].str.contains(' ct |ct | ct') | df['Answers'].str.contains(' ct |ct | ct')))&df['Answers'].str.contains('mri')) == True]
     # print(MriData)
 
     sizeMri = len(MriData)
     sizeCt = len(CtData)
+
+    MriData.sample(frac=1)
+    MriData = MriData.sample(frac=1).reset_index(drop=True)
+    print("mri after random index")
+    print(MriData.head())
+    CtData.sample(frac=1)
+    CtData = CtData.sample(frac=1).reset_index(drop=True)
+    print("______________________________________________________________________________________________________")
+    print("ct after random index")
+    print(CtData.head())
     ##############divide all vqa to 3 group: train:80% valid 10% test :10%################
 
     MriTrainData = MriData[:int(sizeMri * 0.8)]
@@ -164,6 +186,7 @@ def open_data():
     saveDataInExcel(MriTrainData, CtTrainData, "VQA_TrainingSet")
     saveDataInExcel(MriValidData, CtValidData, "VQA_ValidSet")
     saveDataInExcel(MriTestData, CtTestData, "VQA_TestSet")
+    saveTestSetForAnswers(MriTestData, CtTestData, "myAnswers")
 
     writer = ExcelWriter('FinelFiles/result.xlsx')
     result.to_excel(writer, 'result', index=False)
@@ -227,32 +250,32 @@ def Divide_images_into_folders():
       if i == 0:
          dst_dir=train_folder + '/mri/'
          dst_file = os.path.join(dst_dir, basename)
-         if not os.path.exists(dst_file):
-             shutil.copy2(f, dst_dir)
-         else:
-            count = 0
-            dst_file1=dst_file
-            while os.path.exists(dst_file1):
-               count += 1
-               dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
-            # print 'Renaming %s to %s' % (file, dst_file)
-            os.rename(dst_file, dst_file1)
-            shutil.copy2(f, dst_dir)
+         # if not os.path.exists(dst_file):
+         shutil.copy2(f, dst_dir)
+         # else:
+         #    count = 0
+         #    dst_file1=dst_file
+         #    while os.path.exists(dst_file1):
+         #       count += 1
+         #       dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
+         #    # print 'Renaming %s to %s' % (file, dst_file)
+         #    os.rename(dst_file, dst_file1)
+         #    shutil.copy2(f, dst_dir)
 
       else:
          dst_dir = train_folder + '/ct/'
          dst_file = os.path.join(dst_dir, basename)
-         if not os.path.exists(dst_file):
-            shutil.copy2(f, dst_dir)
-         else:
-            count = 0
-            dst_file1 = dst_file
-            while os.path.exists(dst_file1):
-               count += 1
-               dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
-            # print 'Renaming %s to %s' % (file, dst_file)
-            os.rename(dst_file, dst_file1)
-            shutil.copy2(f, dst_dir)
+         # if not os.path.exists(dst_file):
+         shutil.copy2(f, dst_dir)
+         # else:
+         #    count = 0
+         #    dst_file1 = dst_file
+         #    while os.path.exists(dst_file1):
+         #       count += 1
+         #       dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
+         #    # print 'Renaming %s to %s' % (file, dst_file)
+         #    os.rename(dst_file, dst_file1)
+         #    shutil.copy2(f, dst_dir)
 
    for f, i in zip(validData, validLabel):##valid folder
 
@@ -261,7 +284,7 @@ def Divide_images_into_folders():
          dst_dir = valid_folder + '/mri/'
          dst_file = os.path.join(dst_dir, basename)
          if not os.path.exists(dst_file):
-            shutil.copy2(f, dst_dir)
+          shutil.copy2(f, dst_dir)
          else:
             count = 0
             dst_file1 = dst_file
@@ -275,7 +298,7 @@ def Divide_images_into_folders():
          dst_dir = valid_folder + '/ct/'
          dst_file = os.path.join(dst_dir, basename)
          if not os.path.exists(dst_file):
-            shutil.copy2(f, dst_dir)
+          shutil.copy2(f, dst_dir)
          else:
             count = 0
             dst_file1 = dst_file
@@ -293,5 +316,8 @@ def Divide_images_into_folders():
 
 
 # Data pre-processing and data augmentation
-if not os.path.exists('data'):
+def Divide_Images():
+ if not os.path.exists('data'):
    Divide_images_into_folders()
+
+Divide_Images()
