@@ -1,6 +1,6 @@
 from divide_dic import  Divide_Images
 
-from TransferLearningVGG19 import Get_Predition_of_Train_Model
+from CnnModels import Get_Predition_of_Train_Model
 from Evaluator import EvaluatorAnswers
 from formatOfEvaluate import formatToEvaluate
 from Writing_Answers import  WritingAnswers
