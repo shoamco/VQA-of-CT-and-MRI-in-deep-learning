@@ -1,6 +1,6 @@
-# VQA of ct and mri in deep-learning
+# VQA of CT and MRI in deep-learning
 
-## Visual Question Answering in the Medical Domain - Identifying images of mri and ct using  convolutional neural network 
+## Visual Question Answering in the Medical Domain - Identifying images of MRI and CT using  convolutional neural network 
 
 
  
