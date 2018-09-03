@@ -18,3 +18,6 @@ We tried to identify the type of image and by doing so to produce an answer (MRI
 This part is a major part of the analysis of the text, because it helps us understand the subject of the answer.
 The answer file we provide will be compared with the original answer file (using the code specified above).
  
+# Staff:
+* [hodaya marciano](https://github.com/hodayamar)
+* [shoam cohen](https://github.com/shoamco/)
