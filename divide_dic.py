@@ -14,21 +14,6 @@ from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.utils import resample
 
-def formatToEvaluate(res,gt):
-    res = [str(j + 1) + str(res['Questions'].iloc[j]) + '\t' + str(res['Images'].iloc[j]) + '\t' + str(
-        res['Answers'].iloc[j]) for j in range(len(res['Questions']))]
-
-    gt = [str(j + 1) + str(gt['Questions'].iloc[j]) + '\t' + str(gt['Images'].iloc[j]) + '\t' + str(
-        gt['Answers'].iloc[j]) for j in range(len(gt['Questions']))]
-    # "<QA-ID><TAB><Image-ID><TAB><Answer>"
-    myRes = pd.Series(res)
-    gt = pd.Series(gt)
-
-    myRes.replace('"', '')  # replace word
-    gt.replace('"', '')  # replace word
-
-    myRes.to_csv('FinelFiles/res.csv', index=False)
-    gt.to_csv('FinelFiles/gt.csv', index=False)
 
 
 def saveDataInExcel(mriData, ctData, name_file):
@@ -179,18 +164,18 @@ def open_data():
     ResCtTestData['Answers']=['ct' for  row in ResCtTestData.iterrows() ]
     print(MriTestData['Answers'])
     frames = [ResMriTestData, ResMriTestData]
-    result = pd.concat(frames)
-    formatToEvaluate(result,gt)
+    # result = pd.concat(frames)
+    # formatToEvaluate(result,gt)
     ##########save in excel#########
 
     saveDataInExcel(MriTrainData, CtTrainData, "VQA_TrainingSet")
     saveDataInExcel(MriValidData, CtValidData, "VQA_ValidSet")
     saveDataInExcel(MriTestData, CtTestData, "VQA_TestSet")
-    saveTestSetForAnswers(MriTestData, CtTestData, "myAnswers")
+    saveTestSetForAnswers(MriTestData, CtTestData, "VQA_Test")
 
-    writer = ExcelWriter('FinelFiles/result.xlsx')
-    result.to_excel(writer, 'result', index=False)
-    writer.save()
+    # writer = ExcelWriter('FinelFiles/result.xlsx')
+    # result.to_excel(writer, 'result', index=False)
+    # writer.save()
 
     #########  balence  ################
     TrainData, TrainLabel = LabelAndBalance(MriTrainData['Images'], CtTrainData['Images'])
@@ -320,4 +305,3 @@ def Divide_Images():
  if not os.path.exists('data'):
    Divide_images_into_folders()
 
-Divide_Images()

@@ -194,13 +194,16 @@ def Train_Model_And_Predition(model,epochs,batch_size):
 
 
 def WritingAnswers(prediction):
-    dfANS = pd.read_excel(open('FinelFiles/myAnswers.xlsx', 'rb'), names=['Images', 'Questions', 'Answers'])
+
+    path='FinelFiles/OurAnswers.xlsx'
+
+    dfANS = pd.read_excel(open('FinelFiles/VQA_Test.xlsx', 'rb'), names=['Images', 'Questions', 'Answers'])
     dfANS = dfANS.drop(columns=['Answers'])
     dfANS = pd.merge(dfANS, prediction, on=['Images'])
-    writer = ExcelWriter('FinelFiles/VQA_TestSet_Res.xlsx')
-    dfANS.to_excel(writer, 'ImagesOfCtMriVal', index=False)
+    writer = ExcelWriter(path)
+    dfANS.to_excel(writer, index=False)
     writer.save()
-
+    return path
 
 
 
@@ -215,6 +218,7 @@ def Writing_Answers_according_the_predictions_of_trained_Model():
     # model = applications.ResNet50(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
     model = applications.VGG16(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
     my_prediction=Train_Model_And_Predition (model,epochs,batch_size)
-    WritingAnswers(my_prediction)
+    return WritingAnswers(my_prediction)
 
-Writing_Answers_according_the_predictions_of_trained_Model()
+# Writing_Answers_according_the_predictions_of_trained_Model()
+

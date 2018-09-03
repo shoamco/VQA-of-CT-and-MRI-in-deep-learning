@@ -333,23 +333,17 @@ Test evaluation a runfile
 provide path to ground truth file in constructor
 call _evaluate method with path of submitted file as argument
 """
-if __name__ == "__main__":
+# if __name__ == "__main__":
+def EvaluatorAnswers(OurFileAnswers,RealFileAnswers):
 
   #Ground truth file-Their answers
-  gt_file_path = "outputFiles/gt.csv"#
-  # gt_file_path = "testSet.csv"#
-  #Submission file-Our answers
-  submission_file_path = "outputFiles/res.csv"
-  # submission_file_path = "testSet.csv"
-  # submission_file_path = "gt.csv"
-  # submission_file_path = "runs/03_wrong_qaid_imageid_pair.csv"
-  # submission_file_path = "runs/04_qaid_imageid_pair_more_than_once.csv"
-  # submission_file_path = "runs/05_not_all_qaid_imageid_pairs.csv"
+
 
 
   #Create instance of Evaluator
-  evaluator = VqaMedEvaluator(gt_file_path)
+  evaluator = VqaMedEvaluator(RealFileAnswers)
   #Call _evaluate method
-  result = evaluator._evaluate(submission_file_path)
+  result = evaluator._evaluate(OurFileAnswers)
   print(result)
 
+# EvaluatorAnswers("FinelFiles/Evaluate/OurAnswers.csv","FinelFiles/Evaluate/RealAnswers.csv")
