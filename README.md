@@ -3,7 +3,7 @@
 ## Visual Question Answering in the Medical Domain - Identifying  MRI and CT images using  convolutional neural network 
 
 
- 
+# About the project
 
 Visual Question Answering is a new and exciting problem that combines natural language processing and computer vision techniques.
 
