@@ -25,3 +25,4 @@ This folder contains all the final files from our project
  * The [images folder](https://github.com/shoamco/VQA-of-CT-and-MRI-in-deep-learning/tree/master/Final/images) - Contains all images from the original VQA
  * The [data folder]()- Contains only the relevant images to us , After a new partition was made in the file [divide_dic.py file](https://github.com/shoamco/Visual-Question-Answering-in-the-Medical-Domain/blob/master/Final/divide_dic.py)
  * The [InputFiles folder](https://github.com/shoamco/VQA-of-CT-and-MRI-in-deep-learning/tree/master/Final/InputFiles)- Contains all original VQA files of training-set,validation-set,testing-set
+ * The [outputFiles folder](https://github.com/shoamco/VQA-of-CT-and-MRI-in-deep-learning/tree/master/Final/outputFiles)- Contains  analysis of the VQA data
