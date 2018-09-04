@@ -1,0 +1,500 @@
+1	AIAN-16-292-g001	where is the lesion located?
+2	1757-1626-0002-0000007275-001	what does the abdominal ct show?
+3	jkms-25-1536-g002	where is the lesion located?
+4	IJRI-23-243-g004	what is the hypointense signal suggestive of?
+5	kjh-47-142-g001	what does the chest ct image show?
+6	1477-7819-10-209-1	what does the mri of the pelvis show (white arrow)?
+7	CEJU-66-00217-g006	where are the lesions formed?
+8	1758-2555-2-24-4	what does ct and spect ct show?
+9	crn-0007-0134-g01	where is the abnormality located?
+10	JIAPS-20-68-g003	what does the ct scan confirm?
+11	1757-1626-1-293-3	what does the ct demonstrate?
+12	fneur-06-00130-g005	what does the structural mri show?
+13	IJRI-23-243-g005	where is the lesion located?
+14	JPN-5-42-g001	where is the mass located?
+15	AJNS-7-135-g001	what does the contrast-enhanced ct scan show?
+16	ABR-4-169-g001	what does the contrast axial ct scan show?
+17	JNRP-6-91-g003	is there any lesion in this image?
+18	wjem-16-766-g002	what does the pelvic ct show (arrow)?
+19	aob-21-226-g11	where is the abnormality located?
+20	crn-0007-0134-g01	what does the ct brain demonstrate?
+21	IJN-25-234-g002	what kind of image is this?
+22	LI-26-26-g004	what does the ct thorax show?
+23	1757-1626-3-29-2	is there any evidence of small vascular anomalies?
+24	1757-1626-2-9376-2	what condition is shown in the image?
+25	JOMFP-15-214-g008	where is the lesion located (arrow)?
+26	JNSBM-3-105-g001	what does the ct brain demonstrate?
+27	Tanaffos-13-055-g001	what does the ct scan of the chest show?
+28	1757-1626-2-115-6	what does the mri of the ankle show?
+29	1757-1626-2-9142-9	is there any sign of bowel obstruction?
+30	1865-1380-4-64-5	what does the CT scan of the abdomen and pelvis show?
+31	sfp144fig1	what does ct image reconstruction show (arrow)?
+32	13052_2015_195_Fig3_HTML	what does the ct reveal?
+33	IJMPO-30-144-g002	what is associated with the lesion?
+34	aob-21-226-g11	what does the sagittal ct scan image show?
+35	JPN-5-167-g002	what does the magnetic resonance imaging t2w axial sequence show?
+36	crg0002-0373-f01	what does the ct image show?
+37	IJU-28-193-g001	what does the reformatted sagittal ct scan show?
+38	biij-08-e11-g03	are the surrounding bowels well separated from the lesion (black arrows)?
+39	13104_2015_1232_Fig3_HTML	where is the abnormality located?
+40	JCIS-1-39-g008	what are the lesions in the kidneys consistent with?
+41	kjr-8-545-g001	what does the lung ct show?
+42	AIAN-16-259-g003	what is the abnormality indicative of?
+43	2251-6581-13-38-3	where is the lesion located?
+44	JPN-5-25-g002	what's the name of the foreign object in this ct of the head?
+45	1752-1947-4-202-3	what does the ct scan of abdomen show?
+46	ATM-7-104-g001	what does the ct scan show?
+47	crj-02-171-g001	where are the lesions located?
+48	JCIS-1-39-g008	what other abnormalities are associated within the kidneys?
+49	1757-1626-2-9091-2	what is the lesion suggesting?
+50	AIM-22-413-g001	where is the lesion located?
+51	LI-26-48-g003	what does the ct scan of the chest show?
+52	SJG-14-206-g002	Is the mass found within the intestines?
+53	IJN-23-119-g005	what condition is the non-contrast ct suggestive of?
+54	IJRI-23-243-g007	what does the axial fat supressed t1w mri show?
+55	SAJC-2-153-g001	where is the mass located?
+56	PAMJ-11-68-g003	where is the lesion located?
+57	opth-7-1825Fig1	what does the Axial gadolinium-enhanced T1-weighted mrie show?
+58	cpath-2009-005f2	what does the ct scan show?
+59	1757-1626-0002-0000006866-008	what does the sagittal reconstruction of ct cystography show?
+60	ccr30003-0057-f1	what is associated with the abnormalities?
+61	IJRI-23-243-g003	does sagittal t2w mri show a normal uterus and cervix?
+62	40064_2013_635_Fig2_HTML	what does this axial t2 weighted mri show?
+63	jocmr-07-122-g002	what other abnormality is shown in the image?
+64	kjh-47-142-g001	what does the chest ct image show?
+65	crg0002-0040-f01	what does the thoracic ct scan show?
+66	IJRI-24-339-g019	what does the axial ct demonstrate (arrow)?
+67	cro-0007-0444-g03	what abnormalities are associated with the lesion?
+68	jcen-14-104-g003	what does the ct on the right reveal?
+69	LI-26-26-g003	where is the lesion seen?
+70	LI-25-20-g003	what is associated with the lesion?
+71	13104_2013_3123_Fig1_HTML	what does the ct scan of the abdomen and pelvis reveal (arrow)?
+72	JOMFP-15-214-g008	what does the ct scan of chest reveal?
+73	JPN-5-167-g003	what does the t2w axial magnetic resonance image show?
+74	JOMFP-16-406-g004	what does the ct scan of the face show?
+75	AIAN-16-259-g003	what does the t1 mri of the brain show?
+76	IJRI-19-293-g003	what anatomical structure is on the right side of the lesion?
+77	IJCCM-18-609-g002	what are the lesions suggestive of?
+78	ABR-4-169-g001	where is the mass located?
+79	LI-26-26-g004	where is the vessel draining into (arrow)?
+80	ccr30003-0057-f1	what does the brain ct reveal?
+81	1471-2482-10-30-3	what kind of image is this?
+82	crj-02-171-g001	what does the thoracic ct show?
+83	IJMR-137-398-g001	what is the lesion located?
+84	cro-0008-0295-g02	where is the abnormality located?
+85	jcen-15-311-g004	does the image show a midline shift?
+86	1749-8090-9-110-5	what is the size (diameter) of the nodule?
+87	IJRI-18-80-g005	Is the appendix dilated?
+88	IJRI-23-243-g007	what is the lesion suggestive of?
+89	1757-1626-1-228-3	where is the abnormality found?
+90	PAMJ-19-370-g002	what is the cyst located?
+91	IJOrtho-47-624-g002	does the mri (midsagittal view) show spinal cord edema?
+92	10.1177_2047981614545667-fig2	what does the Axial T2W MRI show?
+93	1752-1947-4-94-1	what does the mri of the brain show?
+94	1471-2261-14-13-2	what does the t2 weighted mri show?
+95	0392-100X-32-133-g001b	what does the coronal mri t2 weighted image show?
+96	1471-2377-6-33-1	where are the lesions located?
+97	PAMJ-19-370-g002	what does the abdominal ct show?
+98	AJNS-10-327-g001	what is the lesion suggestive of?
+99	SJA-5-326-g002	what does the sagittal ct lung scan show?
+100	SAJC-2-245-g002	where is the tumor located?
+101	IJRI-23-243-g001	Does the image show two uterine cervices?
+102	rjv07702	what does the mri show?
+103	1471-2377-6-33-4	Are there any changes in the pons?
+104	1471-2377-13-134-7	what does the ct show??
+105	fneur-06-00130-g005	does the PET scan show abnormal tracer accumulation?
+106	rjv07701	what does the ct show?
+107	iranjradiol-08-245-g002	what does the ct scan of the proximal left leg show?
+108	SNI-4-162-g002	where device does the ct topogram show?
+109	JPN-5-167-g003	where are the lesions located?
+110	1752-1947-5-222-2	what does the cerebral mri show?
+111	SJA-5-326-g002	Is the lesion obstructing the trachea?
+112	kjr-8-545-g001	where are the lesions found?
+113	JFMPC-3-440-g001	is there an area of infarction on the image?
+114	ccrep-1-2008-077f2	what does the ct scan demonstrate?
+115	1752-1947-0003-0000008626-1	what does the ct demonstrate?
+116	IJA-58-762-g001	where are the lesions located?
+117	DRJ-11-518-g007	where side of the face is infiltrated by the lesion?
+118	ni-2014-2-5519-g001	where is the lesion located (arrows)?
+119	crj-02-142-g001	where are the lesions located?
+120	ccr30002-0062-f1	does the image show muscle herniating into the defect?
+121	NJMS-3-51-g004	what does the ct scan?
+122	LI-26-48-g003	which side of the diagram is affected?
+123	1757-1626-2-17-1	does the lesion show air-fluid level in it?
+124	AJTS-5-188-g001	what does the ct pulmonary angiogram show?
+125	AIAN-16-304-g002	where are the lesions located?
+126	crg0002-0363-f01	what does the ct enterography show?
+127	AJNS-10-327-g001	what does the mri show?
+128	1806-3713-jbpneu-39-01-00116-gf01	what does the chest ct scan show?
+129	IJRI-19-293-g003	what anatomical structures are on the left side of the lesion?
+130	1756-0500-7-9-1	what does the sagittal ct image show?
+131	1758-2555-2-24-5	what does ct and spect ct show?
+132	12883_2015_437_Fig3_HTML	which conditions are indicated by the lesions?
+133	IJOrtho-47-515-g003	what does the magnetic resonance imaging of left knee show?
+134	12887_2015_356_Fig2_HTML	where is the lesion located?
+135	JPN-8-55-g005	what does the magnetic resonance image of spine sagittal view show?
+136	JPN-4-127-g007	what condition is associated with the lesion?
+137	jcen-14-104-g003	what does the ct on the left reveal?
+138	NAJMS-6-487-g002	where is the abnormality located?
+139	1757-1626-0002-0000007365-001	what does the ct of the abdomen demonstrate?
+140	IJRI-18-80-g002	what other abnormality is shown in the image?
+141	omv05101	where is the lesion located?
+142	2251-6581-13-38-2	what does the mri show?
+143	JNRP-1-118-g001	where is the lesion located?
+144	IJRI-18-80-g001	where is the lesion located?
+145	40064_2013_635_Fig2_HTML	what are the lesions suggestive of?
+146	Tanaffos-13-055-g001	where does the lesion extend to?
+147	10.1177_2047981614545667-fig2	where are the lesions located?
+148	PAMJ-11-68-g003	what does the ct show?
+149	1471-2482-10-30-2	what does the image demonstrate?
+150	1757-1626-0002-0000006866-007	what does the coronal reconstruction of ct cystography show?
+151	AJNS-7-135-g001	Is there erosion of bone erosion in this image?
+152	jkms-24-1195-g004	what does the abdominal ct show?
+153	IJRI-23-243-g004	what does the sagittal t2w mri show?
+154	1757-1626-3-29-1	which anatomical structure is affected?
+155	AJNS-7-135-g001	On which side of the face are the abnormalities located?
+156	jgc-14-275-g003	what does the magnetic resonance imaging show?
+157	pone.0125121.g001	what kind of image is this?
+158	1757-1626-0002-0000007346-003	what does the coronal multiplanar reformation ct image demonstrate?
+159	IJEM-17-733-g001	what does the ct abdomen show?
+160	1752-1947-0003-0000007315-002	what anatomical structures are found in the sac ?
+161	jcn-9-133-g001	what does the t2 weighted mri image reveal?
+162	AJNS-7-135-g003	what does post operative the ct scan show?
+163	40064_2012_66_Fig1_HTML	what does the ct of the brain demonstrate?
+164	cpath-2009-005f2	where is the lesion located?
+165	crj-02-242-g003	what device does the ct show?
+166	1471-2261-14-13-2	where is the lesion located?
+167	IJEM-17-733-g001	where is the abnormality found?
+168	AIAN-16-292-g001	what does the t2w mri brain show?
+169	1757-1626-0002-0000007275-009	what does the abdominal ct show?
+170	AnnGastroenterol-24-221-g001	what does the ct show?
+171	IJO-62-622-g008	where does the axial ct scan of the brain show a cyst?
+172	1749-8090-9-110-5	what does the ct show?
+173	1746-1596-7-139-1	where is the lesion located?
+174	SJG-14-206-g002	what does the contrast enhanced abdominal ct scan reveal?
+175	NAJMS-6-487-g003	is there any evidence of pneumothorax in this image?
+176	PAMJ-19-124-g001	where is the lesion found?
+177	IJEM-16-315-g003	what does the mri show?
+178	UA-7-236-g001	what does the ct abdomen show?
+179	LI-25-20-g002	what does the ct thorax show?
+180	PAMJ-19-124-g001	what does the cranial bone ct image show?
+181	1757-1626-3-81-1	what does the non contrast ct show?
+182	IJRI-19-36-g010	what does the stir coronal mri show (black arrow)?
+183	JPN-8-55-g004	what does the magnetic resonance imaging show?
+184	SAJC-2-245-g002	what does the ct image of the brain show?
+185	1757-1626-0002-0000007365-003	In which thigh does the ct show the abnormality?
+186	2251-6581-13-38-2	where is the lesion located?
+187	ndtplussfr088f02_ht	is there any evidence of an abscess?
+188	IJRI-18-171-g003	what does the image show the abnormality?
+189	IJRI-24-350-g005	what does the axial unenhanced ct image show ?
+190	IJRI-18-80-g004	what does the plain ct scan show?
+191	SJG-14-206-g001	what does the contrast enhanced abdominal ct scan demonstrate?
+192	crj-02-171-g002	what does the cranial ct show?
+193	DRJ-11-518-g007	what does the cranial ct scan show ?
+194	JPN-4-127-g006	what other abnormality can be seen in the image?
+195	1757-1626-2-9091-2	what does th mri of the upper abdomen show?
+196	10.1177_2047981614562443-fig21	Could the recess be mistaken for subcarinal lymphadenopathy?
+197	IJCCM-14-205-g005	what conditions does the ct chest show?
+198	IJU-28-193-g001	where is the lesion located?
+199	GMS-07-28-g-002	what does the ct abdomen show?
+200	IJMR-137-398-g001	what does the ct scan show?
+201	1746-1596-7-139-1	what is the size (largest diameter) of the lesion?
+202	1754-9493-3-19-1	where does the ct thorax show contrast leak?
+203	jocmr-07-122-g002	what does the ct show?
+204	JNRP-1-43-g001	what is the lesion suggestive of?
+205	IJRI-18-80-g002	what does the contrast-enhanced ct scan show?
+206	jcen-15-311-g004	where are the lesions located?
+207	jgc-14-275-g003	what does the magnetic resonance imaging demonstrate edema of?
+208	SAJC-2-153-g001	Does the mass show necrosis within it?
+209	IJRI-18-80-g002	what condition is the lesion suggestive of?
+210	LI-25-165-g002	where is the lesion located?
+211	trd-72-448-g002	where are the lesions located?
+212	opth-7-1825Fig1	Is the anophthalmic orbit totally occupied by the lesion?
+213	biij-08-e11-g03	what does the contrast enhanced pelvic ct in axial section show?
+214	MJIRI-26-140-g001	where is the abnormality located?
+215	jgc-14-275-g003	where is the large pelvic mass arising from?
+216	1471-2253-12-8-1	what conditions are indicated in the ct scan?
+217	jovr-6-1-047f1	Does the lesion have intracranial extension?
+218	IJRI-24-350-g005	what does the appearance of the liver indicate?
+219	IJEM-17-505-g002	are the ovaries absent?
+220	LI-25-168-g002	does the image show mediastinal lymphadenopathy?
+221	ATM-04-75-g031	what does the scout film and axial ct scan show?
+222	IJEM-16-315-g003	which anatomical organ is affected?
+223	SHORTS-12-00402	what does the chest ct show?
+224	PAMJ-19-124-g001	what is the size (diameter) of the lesion?
+225	kjs-10-170-g002	what does the mid sagittal and axial mri of the cervical spine show?
+226	1865-1380-4-64-2	where is the abnormality shown?
+227	IJRI-19-293-g001	what does the axial ct scan show?
+228	CEJU-65-00227-g001	Is the urinary bladder full?
+229	JOMFP-16-406-g005	what does the ct scan show?
+230	0392-100X-32-133-g001b	where is the lesion located?
+231	12957_2015_581_Fig2_HTML	where is the lesion located?
+232	1757-1626-0002-0000008793-003	what anatomical structure is affected in the image?
+233	40064_2012_66_Fig1_HTML	where is the lesion seen?
+234	IJRI-23-243-g005	what does the coronal t2w mri show?
+235	APC-5-44-g002	where are the thrombi located?
+236	SNI-6-47-g002	what does the postoperative axial t2wi mri reveal?
+237	IJN-25-234-g002	what does the ct show?
+238	SJG-16-113-g001	what structure is shown near the liver?
+239	1477-7819-9-25-2	which other abnormalities are associated with the lesion?
+240	JPN-4-127-g006	what does the saggital t1w mri show?
+241	IJRI-18-80-g005	does the image show periappendiceal inflammation?
+242	JFMPC-3-440-g001	what does the mri brain flair coronal image show?
+243	TP-3-166-g002	what does the magnetic resonance imaging of the brain show?
+244	13052_2015_195_Fig3_HTML	what is the abnormality in the right ocular globe suggestive of?
+245	ASJSM-2-057-g003	where is the lesion located?
+246	IJO-58-60-g004	Is the right orbit volume relatively increased compared to the left?
+247	jsls-8-1-93-g01	what does the ct scan show?
+248	AIAN-16-304-g002	what does the mri brain flair image show?
+249	1477-7819-10-209-1	what does the mri of the pelvis show (black arrow)?
+250	jocmr-07-193-g001	what does the sagittal t2 weighted mri of the spine reveal (arrow)?
+251	1757-1626-2-9142-9	where is the lesion located?
+252	JCDR-2-127-g003	what does the axial cerebral ct scan image demonstrate?
+253	JNRP-4-371-g003	does the ct scan show parenchymal damage?
+254	1471-2342-12-31-1	where is the lesion located?
+255	1758-2555-2-24-4	what do the bone tunnels indicate?
+256	JPN-4-127-g007	what does the axial mri show?
+257	1752-1947-5-296-6	what anatomical structure is hyperintense in the mri of the knee?
+258	PAMJ-19-370-g001	what is the cyst located?
+259	UA-7-236-g001	where is the mass located?
+260	JFMPC-3-440-g002	does the image demonstrate cerebral infarction?
+261	jsls-9-1-91-g01	what does the ct demonstrate?
+262	SJA-5-326-g002	where is the lesion located (arrow)?
+263	jkns-55-277-g002	what does the cranial ct scan demonstrate?
+264	ijpbs-006-102-g001	what does the mri of the brain show?
+265	crj-02-142-g001	what does the abdominal ct show?
+266	LI-25-165-g004	what is the lesion suggestive of?
+267	1757-1626-1-293-3	what other abnormality is shown?
+268	1471-2377-13-134-7	what is associated with the lesion?
+269	LI-25-168-g002	is there a cavity in one of the nodules?
+270	jovr-6-1-047f1	what anatomical region is affected by the lesion?
+271	1471-2377-6-33-1	what does the t2 weighted magnetic resonance scan image show?
+272	JNRP-1-43-g002	what is associated with the lesion?
+273	AJNS-7-84-g001	what does the sagittal mri show?
+274	ccr30002-0062-f1	what anatomical structure is affected?
+275	LI-25-20-g002	where is the lesion bulging into?
+276	JNRP-2-4-g007	what does the contrast mri sections show?
+277	1477-7819-9-25-2	what does the abdominal ct reveal?
+278	1757-1626-2-17-1	what does the ct scan of the chest reveal?
+279	ijo-26-267-g001	what does the ct scan with contrast show?
+280	1757-1626-2-9091-2	where is the lesion found?
+281	13104_2015_1232_Fig3_HTML	what does the horizontal ct scan of the legs show?
+282	IJMPO-30-144-g002	what does the ct scan of the abdomen show?
+283	AMS-1-172-g003	what does the ct axial section show?
+284	JNRP-2-4-g007	what is the lesion suggestive of?
+285	IJPsy-54-385-g002	what does the mri t2 weighted image show ballooning of?
+286	JNRP-2-4-g009	what does the mri show?
+287	1752-1947-4-202-3	where are the masses arising from?
+288	IJO-62-622-g008	what show does the axial ct scan show (white arrows)?
+289	1752-1947-4-94-1	where are the largest lesion found?
+290	1757-1626-0002-0000007275-001	where is the lesion located?
+291	1749-7922-4-6-4	what device is shown in the image?
+292	1757-1626-3-29-2	does the image show active bleeding points?
+293	1865-1380-4-64-1	what does the CT scan of the abdomen and pelvis show?
+294	AJNS-7-135-g003	On which side of the face are the abnormalities located?
+295	cro-0008-0456-g01	what does the chest CT scan show?
+296	LI-25-20-g003	what does the ct thorax show?
+297	1754-9493-3-19-1	what does the ct thorax show?
+298	1757-1626-2-96-1	what abnormality does the brain ct scan demonstrate?
+299	1477-7819-9-25-2	where is the lesion located?
+300	JCIS-1-8-g004	what does the coronal ct abdomen show (arrow)?
+301	rju15202	what does the ct of the abdomen demonstrate?
+302	1757-1626-0002-0000007365-003	what does the ct of the thighs reveal?
+303	LI-25-165-g004	what does the ct thorax show?
+304	SJG-16-113-g001	what does the ct scan of the abdomen show?
+305	1757-1626-0002-0000007346-002	what does the contrast-enhanced axial CT image demonstrate (small arrow)?
+306	JNRP-2-4-g007	where is the lesion located?
+307	ijpbs-006-102-g001	where are the lesions located?
+308	MJIRI-26-140-g001	what does the ct chest reveal?
+309	1752-1947-0003-0000007315-002	what does the magnetic resonance image show?
+310	JPN-5-167-g002	where does the image show hyperintensity?
+311	1757-1626-1-98-1	what does the abdominal contrast enhanced ct scan reveal?
+312	1865-1380-4-64-2	what does the CT scan of the abdomen and pelvis show?
+313	1757-1626-0002-0000007275-002	where is the mass located?
+314	1471-2377-6-33-1	Do the lesions affect the globus pallidus?
+315	IJO-58-60-g004	what does the mri show?
+316	1749-7922-4-6-4	what does the ct image of the pelvis show?
+317	KITP-11-23087-g002	what does the ct lung show?
+318	1471-2377-6-33-4	what kind of image is this?
+319	JNRP-2-4-g009	what is the lesion suggestive of?
+320	IJPsy-54-385-g001	what does the axial t1 and t2 weighted mri show?
+321	ijmsv10p1250g01	where is the lesion located?
+322	crj-02-171-g002	where are the lesions located?
+323	1757-1626-0002-0000007275-008	where is the abnormality found?
+324	crg0002-0373-f01	where are the lesions located?
+325	1757-1626-0002-0000007275-007	where is the abnormality located?
+326	jkms-20-166-g001	what does the t2 weighted axial and sagittal mri show (arrow)?
+327	UA-7-88-g004	what does the mri show?
+328	LI-25-168-g002	what does the ct scan of thorax show?
+329	1752-1947-1-11-3	what does the coronal stir sequence mri demonstrate?
+330	JFMPC-3-440-g002	is there a hematoma in the image?
+331	JMedLife-08-112-g002	what does the mri show?
+332	UA-7-236-g001	is there renal hilar lymphadenopathy present?
+333	jkns-55-277-g002	what are the affected anatomical structures?
+334	jkms-25-1536-g002	what other abnormalities are shown in the image (arrows)?
+335	JMedLife-08-112-g002	what anatomical structures is the lesion invading?
+336	SJG-20-262-g001	what does the ct abdomen show?
+337	SNI-2-39-g004	what does the sagittal t2 weighted mri show?
+338	SAJC-2-153-g001	what does the contrast ct axial image?
+339	1471-2342-12-31-1	what does the ct angiogram show?
+340	1477-7800-2-7-2	what does the ct scan of the chest show?
+341	SNI-2-39-g004	what condition is seen in the spinal cord at the C4 - C5 level?
+342	AIAN-16-409-g001	what sign does the t2w mri brain show?
+343	JNRP-1-43-g001	what does the mri t2w show?
+344	JNRP-1-118-g001	what does the sagittal T2W mri show?
+345	1757-1626-3-29-1	what does the ct demonstrate?
+346	1757-1626-2-9376-2	what does the reconstructed 3d ct image show?
+347	1757-1626-3-29-2	what kind of image is this?
+348	rju15203	is there any mass shown in the image?
+349	NJMS-3-195-g003	when kind of image is this?
+350	IJN-25-234-g002	what blood vessel is affected?
+351	JOACP-28-368-g001	is the basal ganglia visible in these mri images?
+352	AnnGastroenterol-24-221-g001	where is the hypodense lesion located?
+353	JIAPS-20-68-g003	what does the ct scan show?
+354	JCDR-2-127-g003	Is the lenticular nucleus visible in the image?
+355	1757-1626-1-261-3	what does the mri show?
+356	IJO-62-622-g008	what show does the axial ct scan show (black arrows)?
+357	aapm-04-01-9137-g002	where is the lesion found?
+358	TP-3-166-g001	where is the lesion located?
+359	ijo-26-267-g001	what is the lesion located?
+360	PAMJ-13-17-g002	what does the ct scan reveal?
+361	ndtplussfr095f01_ht	what does the mri brain demonstrate?
+362	JCDR-2-127-g003	what condition is indicated by the image?
+363	1752-1947-2-385-1	what does the abdominal ct scan demonstrate (arrows)?
+364	1757-1626-0002-0000007346-002	what is associated with the abnormality?
+365	ccr30002-0062-f1	what does the ct show?
+366	1756-0500-7-9-1	what abnormalities are associated with the lesion?
+367	ABR-4-169-g001	what other abnormality if associated with the mass?
+368	1757-1626-2-9142-9	what does the ct scan of the abdomen show?
+369	ASJSM-2-057-g003	what does the ct image show?
+370	rju03501	which anatomical structures are affected?
+371	1757-1626-1-228-3	what does the mri of the left thigh reveal?
+372	1752-1947-5-225-1	where is the mass located?
+373	SaudiMedJ-35-1390-g001	what imaging modality is this?
+374	CEJU-66-00217-g006	what does the ct scan show?
+375	cro-0008-0295-g02	what does the mri of show?
+376	LI-25-165-g002	what is the lesion suggestive of?
+377	IJEM-17-505-g002	is the uterus shown in the image?
+378	JMedLife-08-112-g002	what side of the face is the lesion located?
+379	cro-0007-0444-g03	what does the ct with intravenous contrast show?
+380	LJM-1-060-g001	what anatomical structure is shown in the ct scan?
+381	1471-2407-11-23-1	what does the enhanced pelvic ct scan demonstrate?
+382	1477-7819-7-73-1	what does the ct scan demonstrate?
+383	IJPsy-54-385-g002	what does the flair image show?
+384	trd-72-448-g002	what does the chest ct reveal?
+385	ccr30003-0057-f1	Are the hematomas the same size?
+386	10.1177_2047981614562443-fig21	what does the unenhanced chest ct show ?
+387	jkms-25-1536-g002	what does the non contrast brain ct show?
+388	opth-7-1825Fig1	does the eyeball in the right orbit?
+389	JCHIMP-3-20354-g002	what does the ct angiogram show (arrows)?
+390	1757-1626-0002-0000007275-008	what does the abdominal ct show?
+391	AJNS-7-84-g001	what does the mass contain?
+392	crg0002-0040-f01	where is the lesion located?
+393	2251-6581-13-38-3	what does the mri show?
+394	JCVJS-6-130-g003	what does the mri t2 sagittal show?
+395	NJMS-3-51-g004	where does ct scan show the lesions?
+396	IJA-58-762-g002	what does the axial fluid attenuated inversion recovery mri show?
+397	IJRI-23-243-g001	what other abnormality is shown in the image (arrowhead)?
+398	JRMS-17-575-g001	which anatomical structured is involved by the mass shown in the ct scan?
+399	JNRP-1-43-g001	where does the mri t2w show a lesion?
+400	rju03501	what does the ct angiogram show?
+401	12957_2015_581_Fig2_HTML	what does the chest unenhanced ct scan show?
+402	asj-8-405-g001	does the t2 weighted mri reconstruction show vertebral compression fracture?
+403	JPN-5-42-g001	what does the brain mri scan show?
+404	1757-1626-1-293-3	where is the abnormality located?
+405	jocmr-07-193-g001	where is the lesion located?
+406	JIAPS-16-64-g002	where is the heterogenous mass located?
+407	IJCCM-18-609-g002	what does the mri of the brain show (red arrows)?
+408	1752-1947-5-225-1	what does the CT of thorax show?
+409	IJOrtho-41-76-g001	what does t1w and t2w sagittal and axial mri images show?
+410	CEJU-65-00227-g001	what does the ct scan of the pelvis?
+411	LI-25-165-g002	what does the ct thorax show?
+412	IJRI-18-171-g003	what does the 3d ct aortogram show?
+413	KITP-11-23087-g002	what is the image suggestive of?
+414	JCIS-3-30-g003	are the opacities in both lungs?
+415	JNRP-1-118-g001	what condition is associated with the lesion?
+416	ni-2014-2-5519-g001	what does the gadolinium enhanced brain mri show?
+417	JFMPC-3-440-g002	what does the mri brain t2 axial image show?
+418	crj-02-242-g003	in which anatomical region is the device located?
+419	SJG-14-206-g001	what is the clinical sign shown in the image?
+420	ndtplussfr088f02_ht	what anatomical joint is shown in the mri?
+421	IJA-58-762-g002	where are the lesions located?
+422	omv05101	is the lesion associated with a mass effect?
+423	ogs-56-261-g002	is the brain magnetic resonance imaging normal?
+424	SNI-3-127-g012	what does the axial t2 weighted mri show?
+425	IJRI-23-243-g001	what does the axial t2w mri show?
+426	ijmsv10p1250g01	what does the reformatted ct scan of the cervical spine show (arrow)?
+427	IJRI-18-80-g001	what condition is the lesion suggestive of?
+428	IJA-58-762-g001	what does the axial fluid attenuated inversion recovery mri show?
+429	ndtplussfr095f01_ht	what is associated with the malformation?
+430	1471-2482-10-30-3	what does the image demonstrate?
+431	1471-2482-10-30-2	what kind of image is this?
+432	NJMS-4-122-g001	what does the ct show?
+433	jkms-25-1090-g001	what does the ct scan show?
+434	crg-0008-0089-g01	where is the lesion located?
+435	JCVJS-6-130-g003	where is the lesion located?
+436	AMS-1-172-g003	where is the lesion located?
+437	SHORTS-12-00402	what abnormalities are associated with the lesions?
+438	1749-7221-2-13-3	what does the sagittal t2 weighted mri demonstrate?
+439	IJRI-19-293-g003	what does the axial ct scan show?
+440	omv05101	what does the non contrast axial ct image show?
+441	SNI-6-47-g002	what does the postoperative axial t2wi mri reveal?
+442	JIAPS-16-64-g002	what does the coronal reformatted ct image show?
+443	JCIS-3-30-g003	what does the ct of the thorax show?
+444	jcen-15-311-g004	what does the ct scan show?
+445	IJRI-18-80-g001	what does the contrast-enhanced ct scan show?
+446	JLP-1-25-g001	what does the ct scan show?
+447	ijmsv10p1250g01	what condition is indicated in the image?
+448	CEJU-65-00227-g001	what dive is shown in the bladder?
+449	crj-02-065-g002	what does the contrast ct scan of the neck show?
+450	1752-1947-5-106-4	what does the ct reconstructions demonstrate?
+451	1758-2555-2-24-5	what do the bone tunnels indicate?
+452	12887_2015_356_Fig2_HTML	what does the contrast ct scan reveal ?
+453	aapm-04-01-9137-g002	what does the ct scan show?
+454	jkms-25-1090-g001	where is the lesion located?
+455	ccr30003-0057-f1	where are the hematomas located?
+456	1757-1626-2-96-1	where is the abnormality located?
+457	1757-1626-0002-0000007275-002	what does the abdominal ct show?
+458	TP-3-166-g001	what does the magnetic resonance imaging of the brain show?
+459	jovr-6-1-047f1	what does the cranial ct scan show?
+460	PAMJ-19-370-g001	what does the abdominal ct show?
+461	ATM-04-75-g031	what other abnormality is shown (small arrow) ?
+462	GMS-07-28-g-002	where is the lesion located?
+463	crg-0008-0089-g01	what does the ct scan of the abdomen show?
+464	1752-1947-5-106-4	what is the lesion located?
+465	1757-1626-1-261-3	what are the signals suggestive of?
+466	IJN-23-119-g005	what does the non-contrast ct show ?
+467	brb30001-0057-f1	what does the noncontrast CT of the head show?
+468	TP-3-166-g002	where is the lesion located?
+469	IJRI-19-36-g010	what does the stir coronal mri show (white arrow)?
+470	OL-08-02-0781-g01	what does the mri show?
+471	1757-1626-0002-0000007275-009	where is the abnormality found?
+472	1752-1947-3-9331-3	what anatomical joint region is shown int he image?
+473	biij-08-e11-g03	what is associated with the lesion?
+474	IJRI-18-80-g005	what does the contrast-enhanced ct scan show?
+475	crg0002-0373-f01	what are lesions suggestive of?
+476	1757-1626-0002-0000007275-007	what does the abdominal ct show (arrow)?
+477	APC-5-44-g002	what does the ct angiogram show?
+478	1757-1626-0002-0000008793-003	what does the ct scan show?
+479	iranjradiol-08-245-g002	what abnormality is associated with the lesion?
+480	IJRI-23-243-g007	where is the lesion located?
+481	ATM-04-75-g034	what does the axial ct scan show?
+482	JPN-8-55-g005	Is the mass pulling the cord up to s1 level?
+483	NJMS-3-195-g003	is there facial asymmetry int his image?
+484	1746-1596-7-139-1	what does this contrast enhance ct scan show (asterisk)?
+485	AJNS-7-135-g003	Is there an implant shown in the image?
+486	ccr30002-0020-f1	what is the extent of the item found?
+487	ATM-7-104-g001	what is the mass invading?
+488	LJM-1-060-g001	where does the image show the bony discontinuity?
+489	1471-2377-6-33-1	what are the lesions suggestive of?
+490	SJG-14-206-g002	what does the contrast enhanced abdominal ct scan reveal?
+491	LI-26-26-g003	what does the ct thorax show?
+492	13052_2015_195_Fig3_HTML	Is the left eyeball smaller than the right?
+493	1757-1626-0002-0000007346-003	is the inferior vena cava present in the image (black arrow)?
+494	1757-1626-0002-0000007365-001	where are the abnormalities located?
+495	1757-1626-1-98-1	where is the lesion located?
+496	kjr-8-545-g001	what condition does the lung ct suggest?
+497	JNRP-1-43-g002	what does the mri t2w show?
+498	jkns-55-277-g001	where does the cervical mri demonstrate?
+499	AJTS-5-188-g001	what does the defect suggest?
+500	13104_2013_3123_Fig1_HTML	where is the lesion found?
