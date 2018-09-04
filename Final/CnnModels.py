@@ -47,9 +47,9 @@ print("Number of test examples: ", nb_test_samples)
 channels = 3
 
 
-def Train_Model_And_Predition(model,epochs,batch_size):
-    # Freeze the layers which you don't want to train. Here I am freezing the first 5 layers.
-    for layer in model.layers[:-25]:
+def Train_Model_And_Predition(model,epochs,batch_size,FreezeLayers):
+    # Freeze the layers which you don't want to train
+    for layer in model.layers[:-FreezeLayers]:
         layer.trainable = False
 
     #Adding custom Layers
@@ -200,15 +200,15 @@ def Train_Model_And_Predition(model,epochs,batch_size):
 def Get_Predition_of_Train_Model():
     batch_size = 10
     epochs =15
-
+    FreezeLayers=150
     # model = applications.VGG19(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
     # model = applications.Xception(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
-    # model = applications.InceptionV3(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
+    model = applications.InceptionV3(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
     # model = applications.ResNet50(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
-    model = applications.VGG16(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
+    # model = applications.VGG16(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
 
 
-    prediction=Train_Model_And_Predition (model,epochs,batch_size)
+    prediction=Train_Model_And_Predition (model,epochs,batch_size,FreezeLayers)
     return prediction
 
 # Writing_Answers_according_the_predictions_of_trained_Model()

@@ -84,7 +84,7 @@ def LabelAndBalance(MriImages, CtImages):
 
 
 def open_data():
-    df = pd.read_csv('InputFiles/dataset.csv',
+    df = pd.read_csv('InputFiles/VQAM_Training.csv',
                      names=['Images', 'Questions', 'Answers'])  # open csv file and rename columns
     VQAM = pd.read_csv('InputFiles/VQAM.csv',
                        names=['Images', 'Questions', 'Answers'])  # open csv file and rename columns
@@ -268,31 +268,33 @@ def Divide_images_into_folders():
       if i == 0:
          dst_dir = valid_folder + '/mri/'
          dst_file = os.path.join(dst_dir, basename)
-         if not os.path.exists(dst_file):
-          shutil.copy2(f, dst_dir)
-         else:
-            count = 0
-            dst_file1 = dst_file
-            while os.path.exists(dst_file1):
-               count += 1
-               dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
-
-            os.rename(dst_file, dst_file1)
-            shutil.copy2(f, dst_dir)
+         # if not os.path.exists(dst_file):
+         shutil.copy2(f, dst_dir)
+         # else:
+         #    count = 0
+         #    dst_file1 = dst_file
+         #    while os.path.exists(dst_file1):
+         #       count += 1
+         #       dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
+		 #
+         #    os.rename(dst_file, dst_file1)
+         #    shutil.copy2(f, dst_dir)
       else:
+
+
          dst_dir = valid_folder + '/ct/'
          dst_file = os.path.join(dst_dir, basename)
-         if not os.path.exists(dst_file):
-          shutil.copy2(f, dst_dir)
-         else:
-            count = 0
-            dst_file1 = dst_file
-            while os.path.exists(dst_file1):
-               count += 1
-               dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
-
-            os.rename(dst_file, dst_file1)
-            shutil.copy2(f, dst_dir)
+         # if not os.path.exists(dst_file):
+         shutil.copy2(f, dst_dir)
+         # else:
+         #    count = 0
+         #    dst_file1 = dst_file
+         #    while os.path.exists(dst_file1):
+         #       count += 1
+         #       dst_file1 = os.path.join(dst_dir, '%s-%d%s' % (head, count, tail))
+		 #
+         #    os.rename(dst_file, dst_file1)
+         #    shutil.copy2(f, dst_dir)
    for f, i in zip(testData, testLabel):##test folder
       if i == 0:
          shutil.copy2(f, test_folder + '/mri/')

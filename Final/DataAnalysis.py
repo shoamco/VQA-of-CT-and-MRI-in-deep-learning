@@ -11,8 +11,8 @@ import nltk
 # nltk.download('stopwords')
 import time
 
-df = pd.read_csv('InputFiles/dataset.csv',names=['Images','Questions','Answers'])#open csv file and rename columns
-# df = pd.read_csv('VQAM.csv',names=['Images', 'Questions','Answers'])
+df = pd.read_csv('InputFiles/VQAM_Training.csv',names=['Images','Questions','Answers'])#open csv file and rename columns
+# df = pd.read_csv('VQAM_Validation.csv',names=['Images', 'Questions','Answers'])
 
 # dictionary of replaceable words
 replace_dict = {"magnetic resonance imaging":"mri",
@@ -68,7 +68,7 @@ writer.save()
 # arrow=df[df['Questions'].str.contains(' arrow')]#Only questions about arrow
 
 def exract_data_to_excel():
-    df = pd.read_csv('InputFiles/dataset.csv',
+    df = pd.read_csv('InputFiles/VQAM_Training.csv',
                      names=['Images', 'Questions', 'Answers'])  # open csv file and rename columns
     VQAM = pd.read_csv('InputFiles/VQAM.csv',
                        names=['Images', 'Questions', 'Answers'])  # open csv file and rename columns
