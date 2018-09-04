@@ -12,7 +12,7 @@ This folder contains all the final files from our project
 * The [divide_dic.py file](https://github.com/shoamco/Visual-Question-Answering-in-the-Medical-Domain/blob/master/Final/divide_dic.py)-Extracts from the original VQA only the data containing MRI/CT.
 
 * The [CnnModels.py file](https://github.com/shoamco/Visual-Question-Answering-in-the-Medical-Domain/blob/master/Final/CnnModels.py)-Train  the model (VGG19\VGG16\Xception\InceptionV3\ResNet50) and return the prediction for the test set
-  Then divides the images into 3 folders :train,validion,test (Because the generator needs this division) and saved in the folder [data](https://github.com/shoamco/Visual-Question-Answering-in-the-Medical-Domain/tree/master/Final/data)
+  Then divides the images into 3 folders : train-80%,validion- 10%,test-10% (Because the generator needs this division) and saved in the folder [data](https://github.com/shoamco/Visual-Question-Answering-in-the-Medical-Domain/tree/master/Final/data)
   
 * The [Evaluator.py file](https://github.com/shoamco/Visual-Question-Answering-in-the-Medical-Domain/blob/master/Final/Evaluator.py)-Checking our results in metrics: wbss,bleu.
 
@@ -21,4 +21,7 @@ This folder contains all the final files from our project
 * The [DataAnalysis.py file](https://github.com/shoamco/Visual-Question-Answering-in-the-Medical-Domain/blob/master/Final/DataAnalysis.py) - This file contains a preliminary analysis of the VQA DATA. It is used to understand the subjects of the questions.
     the analysis data  saved in the folder outputFiles.
 
- 
+ ## Explanation of the folders:
+ * The [images folder](https://github.com/shoamco/VQA-of-CT-and-MRI-in-deep-learning/tree/master/Final/images) - Contains all images from the original VQA
+ * The [data folder]()- Contains only the relevant images to us , After a new partition was made in the file [divide_dic.py file](https://github.com/shoamco/Visual-Question-Answering-in-the-Medical-Domain/blob/master/Final/divide_dic.py)
+ * The [InputFiles folder](https://github.com/shoamco/VQA-of-CT-and-MRI-in-deep-learning/tree/master/Final/InputFiles)- Contains all original VQA files of training-set,validation-set,testing-set
