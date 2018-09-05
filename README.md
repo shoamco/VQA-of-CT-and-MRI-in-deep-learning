@@ -12,13 +12,13 @@ Visual Question Answering is a new and exciting problem that combines natural la
 Given a medical image accompanied with a clinically relevant question, participating systems are tasked with answering the question based on the visual image content.
 
 
-The general way to solve that kind of problem is by finding identical features between the image that the user inserts and the rest of the images in the training set database, as well as identifying the main words in the question statement and comparing them to other similar questions in the training set database.
+The general way to solve this kind of problem is by finding identical features between the image that the user inserts and the rest of the images in the training set database, as well identifying the main words in the question statement and comparing them to other similar questions in the training set database.
 
 In our solution, we worked only on questions whose answers contained MRI or CT words.
-We tried to identify the type of image and by doing so to produce an answer (MRI or CT) that would of course be part of the original answer.
 
-This part is a major part of the analysis of the text, because it helps us understand the subject of the answer.
-The answer file we provide will be compared with the original answer file .
+We tried to identify the type of image and to return the type of the image (MRI or CT) as an answer that of course would be a part of the original answer.
+
+The answer file we provide will be compared with the original answer file in the Evaluation
 
 the Evaluation is conducted based on the following three metrics: BLEU, WBSS, and CBSS
  
