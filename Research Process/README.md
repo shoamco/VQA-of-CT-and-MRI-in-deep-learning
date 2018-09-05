@@ -4,7 +4,7 @@
 # We tried different ways:
 * Compare the similarity of the questions - to return the answer of the most similar question
 * Comparison of histograms
-* Extracting the features from models and displaying them in PCA
+* PCA of vector features that we extracted from the models
 
 
 
