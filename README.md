@@ -1,7 +1,8 @@
 # VQA of CT and MRI in deep-learning
 
 ## Visual Question Answering in the Medical Domain - Identifying  MRI and CT images using  convolutional neural network 
-![](https://github.com/shoamco/VQA-of-CT-and-MRI-in-deep-learning/blob/master/docs/pic/logo.jpg)
+
+  <img width="460" height="300" src="https://github.com/shoamco/VQA-of-CT-and-MRI-in-deep-learning/blob/master/docs/pic/logo.jpg">
 
 # About the project
 ### this project is part of the challenge of ImageCLEF-[ImageCLEF-VQA-Med](https://www.imageclef.org/2018/VQA-Med) .
