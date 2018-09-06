@@ -329,21 +329,16 @@ class VqaMedEvaluator:
 
 
 """
-Test evaluation a runfile
-provide path to ground truth file in constructor
-call _evaluate method with path of submitted file as argument
+the function Compare our answers to the real answers, and print the result of: BLUE WBSS
 """
-# if __name__ == "__main__":
+
 def EvaluatorAnswers(OurFileAnswers,RealFileAnswers):
-
-  #Ground truth file-Their answers
-
 
 
   #Create instance of Evaluator
   evaluator = VqaMedEvaluator(RealFileAnswers)
   #Call _evaluate method
   result = evaluator._evaluate(OurFileAnswers)
+  # print the result of BLUE WBSS
   print(result)
 
-# EvaluatorAnswers("FinelFiles/Evaluate/OurAnswers.csv","FinelFiles/Evaluate/RealAnswers.csv")

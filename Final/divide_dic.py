@@ -1,4 +1,13 @@
 
+"""
+this module Extracts from VQA data only the relevant data for us: MRI\CT ,
+ands save the new VQA (in folder "VQA Files"),
+and Divide images into folders:
+ train =80%
+ valid =10%
+ test=10%
+(This distribution is required for the use of the generator)
+"""
 import pandas as pd
 import os
 import numpy as np
@@ -16,11 +25,15 @@ from sklearn.utils import resample
 
 
 
+"""
+The function get the: mri Data and ct Data.and saves them in an Excel file
+"""
 def saveDataInExcel(mriData, ctData, name_file):
     writer = ExcelWriter('VQA Files/' + name_file + '.xlsx')
     mriData.to_excel(writer, 'MRI', index=False)
     ctData.to_excel(writer, 'Ct', index=False)
     writer.save()
+
 
 def saveTestSetForAnswers(mriData, ctData, name_file):
     writer = ExcelWriter('VQA Files/' + name_file + '.xlsx')
@@ -29,7 +42,9 @@ def saveTestSetForAnswers(mriData, ctData, name_file):
     allData.to_excel(writer, index=False)
     writer.save()
 
-
+"""
+balance the classe data( Upsample minority class)
+"""
 def balance_data(df_majority,df_minority):
    n_samples=len(df_majority)
    print(n_samples)
@@ -48,17 +63,12 @@ def balance_data(df_majority,df_minority):
    return df_upsampled
 
 
-def Tree_Based_Algorithms(df_majority, df_minority):
-    y = df.balance
-    X = df.drop('balance', axis=1)
-
-    # Train model
-    clf_4 = RandomForestClassifier()
-    print(type(clf_4))
 
 
+"""
+The function get images of ct mri,Makes a balance,And returns the data and the label
+"""
 
-# The function get images of ct mri,Makes a balance,And returns the data and the label
 def LabelAndBalance(MriImages, CtImages):
    MriImages=MriImages.to_frame()
    CtImages=CtImages.to_frame()
@@ -68,9 +78,7 @@ def LabelAndBalance(MriImages, CtImages):
    dfToCsv.to_csv('VQA Files/VQA_TrainingLabelSet.csv', encoding='utf-8')
 
    df_majority,df_minority = (MriImages, CtImages) if len(MriImages['balance']) >= len(CtImages['balance']) else (CtImages, MriImages)
-   # print(df_majority)
-   # print('**********************************************************************')
-   # print(df_minority)
+
    # dfBalance = balance_data(df_majority,df_minority)
    dfBalance=dfToCsv
    DataImages = ["images\Train-images\\" + row['Images'] + ".jpg" for index, row in dfBalance.iterrows()]
@@ -81,13 +89,15 @@ def LabelAndBalance(MriImages, CtImages):
 
 
 
-
+"""
+the function  Extracts from VQA data only the relevant data for us: MRI\CT ,only Questions/Answers that contains mri/ct
+ands save the new VQA (in folder "VQA Files"),
+and Divide images into 3 group:
+"""
 
 def open_data():
     df = pd.read_csv('InputFiles/VQAM_Training.csv',
                      names=['Images', 'Questions', 'Answers'])  # open csv file and rename columns
-    VQAM = pd.read_csv('InputFiles/VQAM.csv',
-                       names=['Images', 'Questions', 'Answers'])  # open csv file and rename columns
 
     # dictionary of replaceable words
     replace_dict = {"magnetic resonance imaging": "mri",
@@ -105,36 +115,31 @@ def open_data():
                     "does": "", "do ": "", "the": "",
                     # " a ":' ',' is ':' ',
                     }
-    df.replace(to_replace=replace_dict, inplace=True, regex=True)  # replace word
-    VQAM.replace(to_replace=replace_dict, inplace=True, regex=True)  # replace word
 
-    ###################Only mri ct vqa ##################
-    # df= pd.concat([df,VQAM])
-    # MriData= df[(df['Answers'].str.contains('mri')) == True]
+    # Replace similar words in a file
+    df.replace(to_replace=replace_dict, inplace=True, regex=True)  # replace word
+
+
+    ###################Only mri ct VQA ##################
+
     MriData = df[(df['Questions'].str.contains(' mri |mri | mri') | df['Answers'].str.contains(
         ' mri |mri | mri')) == True]  # get all the Mri releted rows
 
     CtData = df[((df['Questions'].str.contains(' ct |ct | ct') | df['Answers'].str.contains(' ct |ct | ct'))) == True]
-    # # print(MriData)
 
-    # MriData = df[((df['Questions'].str.contains(' mri |mri | mri') | df['Answers'].str.contains(' mri |mri | mri'))&df['Answers'].str.contains('mri')) == True]  # get all the Mri releted rows
-	#
-    # CtData = df[(((df['Questions'].str.contains(' ct |ct | ct') | df['Answers'].str.contains(' ct |ct | ct')))&df['Answers'].str.contains('mri')) == True]
-    # print(MriData)
 
     sizeMri = len(MriData)
     sizeCt = len(CtData)
 
     MriData.sample(frac=1)
     MriData = MriData.sample(frac=1).reset_index(drop=True)
-    print("mri after random index")
+
     print(MriData.head())
     CtData.sample(frac=1)
     CtData = CtData.sample(frac=1).reset_index(drop=True)
-    print("______________________________________________________________________________________________________")
-    print("ct after random index")
+
     print(CtData.head())
-    ##############divide all vqa to 3 group: train:80% valid 10% test :10%################
+    ##############divide all VQA to 3 group: train:80% valid 10% test :10%################
 
     MriTrainData = MriData[:int(sizeMri * 0.8)]
     CtTrainData = CtData[:int(sizeCt * 0.8)]
@@ -150,11 +155,6 @@ def open_data():
 
 
 
-
-    frames = [MriTestData, CtTestData]
-    gt = pd.concat(frames)
-
-
     ResMriTestData=MriTestData.copy(deep=True)
     ResCtTestData=CtTestData.copy(deep=True)
 
@@ -163,9 +163,7 @@ def open_data():
     ResMriTestData['Answers']=['mri' for  row in ResMriTestData.iterrows() ]
     ResCtTestData['Answers']=['ct' for  row in ResCtTestData.iterrows() ]
     print(MriTestData['Answers'])
-    frames = [ResMriTestData, ResMriTestData]
-    # result = pd.concat(frames)
-    # formatToEvaluate(result,gt)
+
     ##########save in excel#########
 
     saveDataInExcel(MriTrainData, CtTrainData, "VQA_TrainingSet")
@@ -173,11 +171,8 @@ def open_data():
     saveDataInExcel(MriTestData, CtTestData, "VQA_TestSet")
     saveTestSetForAnswers(MriTestData, CtTestData, "VQA_Test")
 
-    # writer = ExcelWriter('FinelFiles/result.xlsx')
-    # result.to_excel(writer, 'result', index=False)
-    # writer.save()
 
-    #########  balence  ################
+    #########  balence data  ################
     TrainData, TrainLabel = LabelAndBalance(MriTrainData['Images'], CtTrainData['Images'])
     validData, validLabel = LabelAndBalance(MriValidData['Images'], CtValidData['Images'])
 
@@ -198,11 +193,11 @@ def open_data():
     return (TrainData, TrainLabel, validData, validLabel, SizeTrain, SizeValid, SizeTest, testData, testLabel)
 
 
-
-# Divide images into folders of train valid test
-# In which each folder has a partition of CT MRI
-# (To be able to use the model of keras)
-
+"""
+Create 3 folders:train,valid,test (in data folder)
+And paste the images(that divide to three groups) into 
+(This distribution is required for the use of the generator)
+"""
 def Divide_images_into_folders():
    TrainData, TrainLabel, validData, validLabel, SizeTrain, SizeValid, SizeTest, testData, testLabel = open_data()
    makedirs('data')
@@ -303,7 +298,12 @@ def Divide_images_into_folders():
 
 
 # Data pre-processing and data augmentation
+"""
+the function create the data folder-if dont exisits
+"""
 def Divide_Images():
  if not os.path.exists('data'):
    Divide_images_into_folders()
+ else:
+     print("data folder- Already exists")
 

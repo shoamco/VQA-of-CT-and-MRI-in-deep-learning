@@ -1,3 +1,12 @@
+
+
+"""
+This module contains the CNN model
+Training the model on the training-set ,And geting prediction for the test-set
+
+"""
+
+
 from keras import applications
 from keras.preprocessing.image import ImageDataGenerator
 from keras import optimizers
@@ -20,10 +29,7 @@ from pandas import ExcelFile
 import numpy as np
 import glob
 img_width, img_height = 256, 256
-# train_data_dir = "data/train"
-# validation_data_dir = "data/valid"
 
-# dataset_folder_path = 'MRI_CT_data'
 
 
 dataset_folder_path = 'data'
@@ -47,6 +53,13 @@ print("Number of test examples: ", nb_test_samples)
 channels = 3
 
 
+
+"""
+The function get: model ,epochs,batch_size and number of layers for freezing
+Adds layers to classify the model - in the output layer
+Training the model on the training-set
+And returns prediction for the test-set
+"""
 def Train_Model_And_Predition(model,epochs,batch_size,FreezeLayers):
     # Freeze the layers which you don't want to train
     for layer in model.layers[:-FreezeLayers]:
@@ -69,13 +82,6 @@ def Train_Model_And_Predition(model,epochs,batch_size,FreezeLayers):
     x = Dropout(0.2)(x)
 
 
-
-
-
-
-
-
-
     # x = Dense(1024, activation="relu")(x)
     predictions = Dense(2, activation="softmax")(x)
 
@@ -88,7 +94,7 @@ def Train_Model_And_Predition(model,epochs,batch_size,FreezeLayers):
 
     model_final.summary()
 
-    # Initiate the train and test generators with data Augumentation
+    # Initiate the train ,validion,test generators with data Augumentation
     train_datagen = ImageDataGenerator(
     rescale = 1./255,
     horizontal_flip = True,
@@ -136,11 +142,7 @@ def Train_Model_And_Predition(model,epochs,batch_size,FreezeLayers):
 
 
 
-    # Save the model according to the conditions
-    checkpoint = ModelCheckpoint("vgg19_1.h5", monitor='val_acc', verbose=1, save_best_only=True, save_weights_only=False, mode='auto', period=1)
-    early = EarlyStopping(monitor='val_acc', min_delta=0, patience=10, verbose=1, mode='auto')
-
-
+    #    Training the model
     model_final.fit_generator(
         train_generator,
         steps_per_epoch=train_generator.samples / train_generator.batch_size,
@@ -156,7 +158,7 @@ def Train_Model_And_Predition(model,epochs,batch_size,FreezeLayers):
     # the final prediction on the test dataset
     y_pred = model_final.predict_generator(test_generator, nb_test_samples, workers=4)
 
-    prediction=pd.DataFrame(columns=['Images', 'Answers'])
+
     Images_list = []
     Answers_list = []
     correct = 0
@@ -181,11 +183,10 @@ def Train_Model_And_Predition(model,epochs,batch_size,FreezeLayers):
                 correct += 1
 
 
-
+    # save answer as prediction for each Image
     prediction = pd.DataFrame( {'Images': Images_list,'Answers': Answers_list})
-    # prediction = prediction.set_index('Images')
-    # print(prediction.set_index('Images'))
 
+    # print the prediction of the test-set
     print('Correct predictions: '+str(correct/len(test_generator.filenames)) , ", num of images: " , len(test_generator.filenames))
 
 
@@ -196,14 +197,16 @@ def Train_Model_And_Predition(model,epochs,batch_size,FreezeLayers):
 
 
 
-
+# The function returns the predictions for a particular model
 def Get_Predition_of_Train_Model():
     batch_size = 10
     epochs =15
-    FreezeLayers=150
-    # model = applications.VGG19(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
+    FreezeLayers=25
+
+    # the models
+    model = applications.VGG19(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
     # model = applications.Xception(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
-    model = applications.InceptionV3(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
+    # model = applications.InceptionV3(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
     # model = applications.ResNet50(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
     # model = applications.VGG16(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, channels))
 
@@ -211,5 +214,4 @@ def Get_Predition_of_Train_Model():
     prediction=Train_Model_And_Predition (model,epochs,batch_size,FreezeLayers)
     return prediction
 
-# Writing_Answers_according_the_predictions_of_trained_Model()
 
